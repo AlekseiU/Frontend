@@ -1,0 +1,6 @@
+// Opacity
+
+opacity($opacity)
+    opacity: $opacity;
+    // IE8 filter
+    filter: s("alpha(opacity=%s)", ($opacity * 100));

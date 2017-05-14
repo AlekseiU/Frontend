@@ -1,0 +1,34 @@
+<aside [class.closed]="!visibility">
+	<div class="container">
+		<div class="content">
+			<div class="title">Проекты</div>
+			<div class="projects">
+				<div class="project"
+					 *ngFor="let project of projects"
+					 (click)="select(project)"
+					 [ngClass]="{selected: project === selectedProject}">
+					<i class="fa fa-database project__icon" 
+					   aria-hidden="true"></i>
+					<div class="project__info">
+						<span class="project__name">{{project.name}}</span>
+						<span class="project__pages">
+							<i class="fa fa-files-o project__pages_icon" 
+							   aria-hidden="true"></i>
+							<span class="project__pages_count">{{project.pages || 0}}</span>
+						</span>
+					</div>
+				</div>																
+				<div class="create">
+					<i class="fa fa-plus create__icon"
+					   aria-hidden="true"
+					   (click)="create('Без имени')"></i>
+				</div>
+			</div>
+		</div>
+		<div class="close"
+			 (click)="hide()">
+			<i class="fa fa-arrow-circle-o-left close__icon" 
+			   aria-hidden="true"></i>		
+		</div>
+	</div>
+</aside>

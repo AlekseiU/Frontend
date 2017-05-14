@@ -1,0 +1,103 @@
+@keyframes collapse
+	from
+		max-width: 100%;
+		max-height: 100%;
+	to
+		max-width: 50px;
+		max-height: 50px;
+
+:host
+	width: 100%;
+	display: flex;
+	position: relative;
+	overflow: hidden;
+	& .container
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+		flex: 1 0 100%;
+		cursor: grab;
+		cursor: -webkit-grab;
+		&:active
+			cursor: grabbing;
+			cursor: -webkit-grabbing;
+	& .name
+		background-color: #1f408a;
+		box-shadow: 0px 0px 15px #000;
+		border-bottom: 1px solid #fff;
+		position: absolute;
+		width: 100%;
+		z-index: 10;
+		&__input
+			display: block;
+			width: 100%;
+			border: 0;
+			margin: 0;
+			background-color: transparent;
+			color: #fff;
+			text-align: center;
+			padding: 20px 0;
+			font-size: 20px;
+			font-weight: 100;
+			&::placeholder
+				opacity: 1;
+				color: #fff;
+	& .dataList
+		align-items: center;
+		justify-content: center;
+		display: flex;
+		flex: 1;
+		position: relative;		
+		& .container
+			opacity: 0;
+			z-index: -1;
+			transition: opacity 0.3s ease-in;		
+			&.visible
+				z-index: 0;
+				opacity: 1;
+			&.fullScreen
+				z-index: 30;
+	& .createData
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 100%;
+		flex: 1;
+		max-width: 100%;
+		max-height: 100%;
+		position: absolute;
+		z-index: 20;
+		width: 100%;
+		&__icon
+			color: #fff;
+			background-color: #1f408a;
+			font-size: 50px;
+			cursor: pointer;
+			box-shadow: 0px 0px 15px #000;
+			border-radius: 50%;
+			width: 100px;
+			height: 100px;
+			text-align: center;
+			line-height: 100px;
+			border: 1px solid #fff;
+			transition: all 0.3s ease;
+			position: relative;
+			&:hover
+				background-color: #3458a7;
+			&:active
+				background-color: #15306b;
+		&.collapsed
+			animation-name: collapse;
+			animation-duration: 0.3s;
+			animation-timing-function: ease;
+			max-width: 50px;
+			max-height: 50px;
+			left: 10px;
+			top: 7px;
+			& .createData__icon
+				width: 50px;
+				height: 50px;
+				line-height: 50px;
+				font-size: 30px;
+				margin-top: 0px;			
+		

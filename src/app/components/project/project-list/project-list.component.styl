@@ -1,0 +1,108 @@
+:host
+	position: relative;
+	& aside
+		background-color: #1f408a;
+		box-shadow: 0px 0px 15px #000;
+		border-right: 1px solid #fff;
+		color: #fff;
+		position: relative;
+		left: 0;
+		height: 100%;
+		width: 249px;
+		display: flex;
+		transition: margin 0.3s ease;
+		&.closed
+			margin-left: -225px;
+			& .close 
+				transform: rotate(180deg);
+	& .container
+		display: flex;
+		width: 100%;
+		overflow-x: hidden;
+	& .content
+		flex: 1 0 85%;
+		overflow-x: hidden;
+	& .title
+		padding: 20px 0;
+		text-align: center;
+		font-weight: 100;
+		font-size: 20px;
+	& .projects
+		display: flex;
+		flex-direction: column-reverse;
+		& .project
+			display: flex;
+			padding: 20px;
+			cursor: pointer;
+			box-shadow: 0px 0px 15px #000;
+			transition: background-color 0.3s ease;
+			margin: 0 0 0px 0;
+			font-size: 12px;
+			font-weight: 100;
+			background-color: #1f408a;
+			justify-content: flex-start;
+			user-select: none;
+			outline: none;	
+			&:hover
+				background-color: #3458a7;
+				z-index: 1;
+			&:active
+				background-color: #15306b;	
+				z-index: 1;
+			&.selected
+				background-color: #15306b;	
+				z-index: 1;
+			&__info
+				display: flex;
+				justify-content: space-between;
+				flex: 1;
+				padding: 0 0 0 10px;
+			&__icon
+				display: inline;
+			&__name
+				display: inline;
+			&__pages
+				display: inline-flex;
+				justify-content: space-between;
+				&_icon
+					display: inline;
+				&_count
+					display: inline-block;
+					padding-left: 5px;
+		& .create
+			order: -1;
+			&__icon
+				color: #fff;
+				background-color: #1f408a;
+				font-size: 30px;
+				cursor: pointer;
+				box-shadow: 0px 0px 15px #000;
+				border-radius: 50%;
+				width: 50px;
+				height: 50px;
+				text-align: center;
+				line-height: 50px;
+				border: 1px solid #fff;
+				transition: all 0.3s ease;
+				position: relative;
+				margin: 20px auto 20px auto;
+				display: block;
+				&:hover
+					background-color: #3458a7;
+				&:active
+					background-color: #15306b;
+	& .close
+		width: 25px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		box-shadow: 0px 0px 15px #000;
+		transition: background-color 0.3s ease;
+		z-index: 2;
+		&:hover
+			background-color: #3458a7;
+		&:active
+			background-color: #15306b;
+		&__icon
+			font-size: 20px;

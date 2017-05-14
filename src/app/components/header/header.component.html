@@ -1,0 +1,41 @@
+<header [class.closed]="!visibility">
+	<div class="container">
+		<div class="row">
+			<a class="logo"
+			   href="/" >
+				<span class="logo__image">MindAssistant</span>
+				<span class="logo__version">v.0.0.1</span>
+			</a>
+			<div class="search">
+				<div class="search__group">
+					<input class="search__input"
+						   type="text" 
+						   placeholder="Поиск..."  />
+					<button class="search__button">Найти</button>
+				</div>
+			</div>
+			<div class="help">
+				<i class="fa fa-question help__icon" 
+				   aria-hidden="true"></i>
+				<span class="settings__title">Справка</span>
+			</div>
+			<div class="account">
+				<i class="fa fa-user account__icon" 
+				   aria-hidden="true"></i>
+				<span class="settings__title">Профиль</span>
+			</div>			
+			<div class="settings">
+				<i class="fa fa-cogs settings__icon" 
+				   aria-hidden="true"></i>
+				<span class="settings__title">Настройки</span>
+			</div>			
+		</div>
+		<!-- <div class="row">
+			<div class="close"
+				 (click)="hide()">
+				<i class="fa fa-arrow-circle-o-left close__icon" 
+					   aria-hidden="true"></i>
+			</div>
+		</div> -->
+	</div>
+</header>

@@ -1,0 +1,122 @@
+// ToDo:
+// Написать анимацию для раскрытия блока инфы
+
+// :host
+// 	display: block;
+// 	width: 100px;
+// 	height: 100px;
+// 	& .container
+// 		display: flex;
+// 		height: 100px;
+// 		width: 100px;
+// 		border: 1px solid #ffffff;
+// 		border-radius: 50%;
+// 		box-shadow: 0px 0px 15px rgba(0,0,0,1);
+// 		overflow: hidden;
+// 		position: absolute;
+// 		// transition: all 1s ease-in;
+// 		&.fullScreen
+// 			top: 0;
+// 			left: 0;
+// 			width: 100%;
+// 			height: 100%;
+// 			border-radius: 0px;
+// 			border: 0;
+// 			& .backdrop
+// 				border-radius: 0;
+// 				opacity: 0;
+// 			& .content 
+// 				width: 100%;
+// 				height: 100%;
+// 	& .backdrop
+// 		display: flex;
+// 		width: 100%;
+// 		align-items: center;
+// 		justify-content: center;
+// 		border-radius: 50%;
+// 		background-color: #1f408a;
+// 		color: #fff;
+// 		cursor: pointer;
+// 		position: absolute;
+// 		height: 100%;
+// 		opacity: 1;
+// 		transition: all 0.5s ease-in;
+// 		&:hover
+// 			background-color: #3458a7;
+// 		&:focus
+// 		&:active
+// 			background-color: #15306b;
+// 	& .backdrop__name
+// 		font-size: 12px;
+// 		font-weight: 300;
+// 		text-align: center;
+// 		text-overflow: clip;
+// 		overflow-x: hidden;
+// 		overflow-y: hidden;
+// 		max-width: 65px;
+// 		max-height: 65px;
+// 		line-height: 1.3;
+// 	& .content 
+// 		display: block;
+// 		height: 0;
+// 		width: 0;
+// 		overflow: hidden;
+// 		position: relative;
+// 		background-color: rgba(255,255,255,0.9);
+// 		&__name
+// 			display: block;
+// 			&_input
+// 				display: block;
+// 				width: 100%;
+// 				border: 0;
+// 				margin: 0;
+// 				background-color: transparent;
+// 				padding: 20px 0;
+// 				font-size: 15px;
+// 				font-weight: 300;
+// 				text-align: center;
+// 				&::placeholder
+// 					opacity: 1;
+// 					color: #333;
+// 		&__close
+// 			position: absolute;
+// 			right: 10px;
+// 			top: 10px;
+// 			cursor: pointer;
+// 			&_icon
+// 				background-color: #1f408a;
+// 				box-shadow: 0px 0px 15px #000;
+// 				border: 1px solid #fff;
+// 				color: #fff;
+// 				border-radius: 50%;
+// 				width: 50px;
+// 				height: 50px;
+// 				text-align: center;
+// 				line-height: 50px;
+// 				font-size: 30px;
+// 				&:hover
+// 					background-color: #3458a7;
+// 				&:active
+// 					background-color: #15306b;
+// 		&__create
+// 			position: absolute;
+// 			bottom: 0;
+// 			cursor: pointer;
+// 			width: 100%;
+// 			text-align: center;
+// 			padding: 10px 0;
+// 			&_icon
+// 				background-color: #1f408a;
+// 				box-shadow: 0px 0px 15px #000;
+// 				border: 1px solid #fff;
+// 				color: #fff;
+// 				border-radius: 50%;
+// 				width: 50px;
+// 				height: 50px;
+// 				text-align: center;
+// 				line-height: 50px;
+// 				font-size: 30px;			
+// 				&:hover
+// 					background-color: #3458a7;
+// 				&:active
+// 					background-color: #15306b;
