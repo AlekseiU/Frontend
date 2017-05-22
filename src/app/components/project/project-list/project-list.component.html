@@ -6,7 +6,7 @@
 				<div class="project"
 					 *ngFor="let project of projects"
 					 (click)="select(project)"
-					 [ngClass]="{selected: project === selectedProject}">
+					 [class.selected]="project.id === selectedProject.id">
 					<i class="fa fa-database project__icon" 
 					   aria-hidden="true"></i>
 					<div class="project__info">

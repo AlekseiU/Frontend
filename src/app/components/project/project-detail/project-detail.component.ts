@@ -26,10 +26,10 @@ export class ProjectDetailComponent implements OnInit {
 	/* Инициализация переменных */
 	/****************************/
 	draggable: DataComponent = null;
-	dragging: boolean = false;
+	dragInProcess: boolean = false;
 	data: DataComponent[] = [];
 	scaleOrigin: number = 1;
-	scaleStyle: string = this.scaleStyle = 'scale(' + this.scaleOrigin + ')';
+	scaleStyle: string = 'scale(' + this.scaleOrigin + ')';
 	dragCanvas: boolean = false;
 	defaultX: number;
 	defaultY: number;
@@ -38,38 +38,33 @@ export class ProjectDetailComponent implements OnInit {
 	/***********************/
 	/* Обработчики событий */
 	/***********************/
-	@HostListener('mousedown', ['$event']) mouseDown(e) {
-  		if (!this.draggable) {
-	  		this.dragCanvas = true;
-		}
-  	}
+	// @HostListener('mousedown', ['$event']) mouseDown(e) {
+ //  		if (!this.draggable) {
+	//   		this.dragCanvas = true;
+	// 	}
+ //  	}
   	@HostListener('mouseup', ['$event']) mouseUp(e) {
   		if (this.draggable) {
-	  		if (!this.dragging) {
-	  			this.draggable.fullScreen = true;
+	  		if (!this.dragInProcess) {
+	  			this.lockScale = true;
 	  		}
 	  		this.updateData(this.draggable);
 			this.draggable = null;
-			this.dragging = false;
+			this.dragInProcess = false;
 		}
 		this.dragCanvas = false;
   	}
 	@HostListener('mousemove', ['$event']) mouseMove(e) {
-		if (this.draggable && !this.lockScale) {
-			this.dragging = true;
-			this.draggable.coordinates.x = this.draggable.coordinates.x ? this.draggable.coordinates.x += e.movementX : 0 + e.movementX;
-            this.draggable.coordinates.y = this.draggable.coordinates.y ? this.draggable.coordinates.y += e.movementY : 0 + e.movementY;
+		if (this.draggable) {
+			this.dragInProcess = true;
+			this.draggable.coordinates.x = this.draggable.coordinates.x ? this.draggable.coordinates.x += e.movementX / this.scaleOrigin : 0 + e.movementX / this.scaleOrigin;
+            this.draggable.coordinates.y = this.draggable.coordinates.y ? this.draggable.coordinates.y += e.movementY / this.scaleOrigin : 0 + e.movementY / this.scaleOrigin;
         } else if (this.dragCanvas) {
 			for (let item in this.data) {
-				this.data[item].coordinates.x += e.movementX;
-				this.data[item].coordinates.y += e.movementY;
+				this.data[item].coordinates.x += e.movementX / this.scaleOrigin;
+				this.data[item].coordinates.y += e.movementY / this.scaleOrigin;
 			}
 		}
-  	}	
-  	@HostListener('click', ['$event']) mouseClick(e) {
-  		this.lockScale = !this.data.every((item) => {
-			return !item.fullScreen;
-		});
   	}
 
 	constructor(
@@ -80,10 +75,11 @@ export class ProjectDetailComponent implements OnInit {
 	/*********************/
 	/* Методы компонента */
 	/*********************/
+	handleToogleFullscreen(event: boolean) {
+		this.lockScale = event;
+	}
+
 	wheel(e) {
-		this.lockScale = !this.data.every((item) => {
-			return !item.fullScreen;
-		});
 		if (!this.lockScale) {
 			e.preventDefault();
 			let delta = e.deltaY || e.detail || e.wheelDelta;
@@ -97,8 +93,18 @@ export class ProjectDetailComponent implements OnInit {
 		}
 	}
 
-	drag(data: DataComponent): void {
+	dragData(data: DataComponent): void {
 		this.draggable = data;
+	}
+
+	startDragCanvas(): void {
+  		this.dragCanvas = true;
+	}
+
+	linkData(data: DataComponent) {
+		if (this.draggable && this.draggable !== data) {
+			this.draggable.parent = data.id;
+		}
 	}
 
 	createData(name: string): void {
@@ -120,6 +126,23 @@ export class ProjectDetailComponent implements OnInit {
  	     	});
 	}
 
+	findParent(id: any) {
+		if (this.data && id) {
+			return this.data.find((element) => {
+				return element.id === parseInt(id);
+			});
+		}
+	}
+
+	handleChildCreated(data: DataComponent) {
+		this.data.push(data);
+	}
+
+	handleScale(scale) {
+		this.scaleOrigin = scale;
+		this.scaleStyle = 'scale(' + this.scaleOrigin + ')';
+	}
+
 	/****************************/
 	/* Инициализация компонента */
 	/****************************/
@@ -131,9 +154,7 @@ export class ProjectDetailComponent implements OnInit {
 		}
 	}
 
-	ngOnInit() {
-		
-	}
+	ngOnInit() {}
 }
 
 /********* ToDo: **********/

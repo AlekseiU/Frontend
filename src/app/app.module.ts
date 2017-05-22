@@ -23,9 +23,13 @@ import { ProjectDetailComponent } from './components/project/project-detail/proj
 // Data
 import { DataComponent } from './components/data/data.component';
 import { DataDetailComponent } from './components/data/data-detail/data-detail.component';
+import { DataFieldComponent } from './components/data/data-field/data-field.component';
 // UI
-import { LoaderComponent } from './components/loader/loader.component';
-import { DialogDirective } from './directives/dialog.directive';
+import { LoaderComponent } from './components/ui/loader/loader.component';
+import { RangeComponent } from './components/ui/range/range.component';
+
+// Order plugin
+import { Ng2OrderModule } from 'ng2-order-pipe';
 
 @NgModule({
   declarations: [
@@ -37,17 +41,19 @@ import { DialogDirective } from './directives/dialog.directive';
     LoaderComponent,
     WorkplaceComponent,
     ProjectComponent,
-    DialogDirective,
     DashboardComponent,
     ProjectDetailComponent,
-    DataDetailComponent
+    DataDetailComponent,
+    DataFieldComponent,
+    RangeComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     InMemoryWebApiModule.forRoot(DatabaseService),
-    AppRoutingModule
+    AppRoutingModule,
+    Ng2OrderModule
   ],
   providers: [],
   bootstrap: [AppComponent]

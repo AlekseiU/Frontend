@@ -18,13 +18,12 @@
 	border: 1px solid #ffffff;
 	border-radius: 50%;
 	box-shadow: 0px 0px 15px rgba(0,0,0,1);
-	overflow: hidden;
 	position: absolute;
 	&.fullScreen
 		animation: dataOpen 0.3s ease forwards;
-		z-index: 1;
+		z-index: 100;
 		transform: scale(1) !important;
-		overflow-y: scroll;
+		overflow-y: auto;
 		& .backdrop
 			border-radius: 0;
 			opacity: 0;
@@ -35,6 +34,8 @@
 			cursor: default;
 			padding: 65px 0 100px;
 			min-height: calc(100% - 65px - 100px);
+		& .data__controls
+			display: none;
 	&.grabbing
 		& .backdrop
 			cursor: grabbing;
@@ -54,21 +55,123 @@
 		transition: all 0.5s ease-in;
 		user-select: none;
 		z-index: 3;
+		&__name
+			font-size: 12px;
+			font-weight: 300;
+			text-align: center;
+			text-overflow: clip;
+			overflow-x: hidden;
+			overflow-y: hidden;
+			max-width: 65px;
+			max-height: 65px;
+			line-height: 1.3;
 		&:hover
 			background-color: #3458a7;
 		&:focus
 		&:active
 			background-color: #15306b;
-	& .backdrop__name
-		font-size: 12px;
-		font-weight: 300;
-		text-align: center;
-		text-overflow: clip;
-		overflow-x: hidden;
-		overflow-y: hidden;
-		max-width: 65px;
-		max-height: 65px;
-		line-height: 1.3;
+	& .data__controls
+		& .icon 
+			background-color: #1f408a;
+			box-shadow: 0px 0px 15px #000;
+			border: 1px solid #fff;
+			border-radius: 50%;
+			width: 18px;
+			height: 18px;
+			text-align: center;
+			line-height: 16px;
+			transition: all 0.3s ease;
+			transform: scale(0);
+			cursor: pointer;
+			z-index: 5;
+			&:hover
+				background-color: #3458a7;
+			&:active
+				background-color: #15306b;
+			& i
+				font-size: 12px;
+				color: #fff;
+		& .breakConnection
+			position: absolute;
+			top: -10px;
+			left: calc(50% - 10px);
+		& .deleteData
+			background: #BD001C;
+			position: absolute;
+			bottom: 0px;
+			left: calc(50% - 40px);				
+			&:hover
+				background-color: #d71733;
+			&:active
+				background-color: #b20821;
+		& .addChild
+			position: absolute;
+			left: calc(50% - 10px);
+			bottom: -10px;
+		& .selectParent
+			position: absolute;
+			bottom: 0px;
+			left: calc(50% + 20px);
+		& .parentList
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: space-between;
+			background-color: #1f408a;
+			box-shadow: 0px 0px 15px #000;
+			border: 1px solid #fff;
+			color: #fff;
+			border-radius: 4px;
+			padding: 0;
+			font-size: 12px;
+			font-weight: 100;
+			width: 100px;
+			z-index: 10;
+			right: -33px;
+			transform: scale(0);
+			transition: transform 0.3s ease;
+			position: absolute;
+			bottom: -55px;
+			flex-direction: column;			
+			&.visible
+				transform: scale(1); 
+			&:after
+			&:before
+				bottom: 100%;
+				right: calc(50% - 6px);
+				border: solid transparent;
+				content: '';
+				height: 0;
+				width: 0;
+				position: absolute;
+				pointer-events: none;
+				transform: rotate(180deg);
+			&:after
+				border-color: rgba(136,183,213,0);
+				border-top-color: #1f408a;
+				border-width: 7px;
+				margin-right: 1px;
+			&:before
+				border-color: rgba(194,225,245,0);
+				border-top-color: #fff;
+				border-width: 8px;
+				margin-left: -8px;
+			& span 
+				font-size: 11px;
+				font-weight: 100;
+				text-align: center;
+				padding: 5px 0;
+			& select 
+				border: 1px solid #1f408a;
+				border-radius: 4px;
+				display: block;
+				font-family: Roboto;
+				font-size: 12px;
+				font-weight: 100;
+				margin: 0 5px 5px;
+				width: calc(100% - 10px);
+				height: 20px;
+	& .line 
+		display: block;
 	& .content 
 		display: block;
 		height: 0;
@@ -82,7 +185,7 @@
 			box-shadow: 0px 0px 15px #000;
 			border-bottom: 1px solid #fff;
 			z-index: 1;
-			position: fixed;
+			position: absolute;
 			width: 100%;
 			top: 0;
 			&_input
@@ -101,7 +204,7 @@
 					color: #333;
 		&__approve
 		&__declane
-			position: fixed;
+			position: absolute;
 			top: 6px;
 			cursor: pointer;
 			z-index: 2;
@@ -125,30 +228,134 @@
 			right: 10px;
 		&__declane
 			left: 10px;
-		&__create
-			width: 100%;
+		&__controls
+			width: calc(100% - 20px);
 			text-align: center;
-			padding: 12px 0;
+			padding: 12px 10px;
 			position: absolute;
 			bottom: 0;
-			border-top: 1px dashed #1f408a;
-			&_icon
-				cursor: pointer;
-				background-color: #1f408a;
-				box-shadow: 0px 0px 15px #000;
-				border: 1px solid #fff;
-				color: #fff;
-				border-radius: 50%;
-				width: 50px;
-				height: 50px;
-				text-align: center;
-				line-height: 50px;
-				font-size: 30px;
-				transition: all 0.3s ease;
-				&:hover
-					background-color: #3458a7;
-				&:active
-					background-color: #15306b;					
+			background-color: #1f408a;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			box-shadow: 0px 0px 15px #000;
+			&_create
+				&_icon
+					cursor: pointer;
+					background-color: #1f408a;
+					box-shadow: 0px 0px 15px #000;
+					border: 1px solid #fff;
+					color: #fff;
+					border-radius: 50%;
+					width: 50px;
+					height: 50px;
+					text-align: center;
+					line-height: 50px;
+					font-size: 30px;
+					transition: all 0.3s ease;
+					&:hover
+						background-color: #3458a7;
+					&:active
+						background-color: #15306b;	
+			&_delete
+				&_icon
+					cursor: pointer;
+					box-shadow: 0px 0px 15px #000;
+					border: 1px solid #fff;
+					color: #fff;
+					border-radius: 50%;
+					width: 50px;
+					height: 50px;
+					text-align: center;
+					line-height: 50px;
+					font-size: 30px;
+					transition: all 0.3s ease;
+					background: #BD001C;
+					&:hover
+						background-color: #d71733;
+						z-index: 1;
+					&:active
+						background-color: #b20821;
+			&_parent
+				&_icon
+					cursor: pointer;
+					background-color: #1f408a;
+					box-shadow: 0px 0px 15px #000;
+					border: 1px solid #fff;
+					color: #fff;
+					border-radius: 50%;
+					width: 50px;
+					height: 50px;
+					text-align: center;
+					line-height: 50px;
+					font-size: 30px;
+					transition: all 0.3s ease;
+					&:hover
+						background-color: #3458a7;
+					&:active
+						background-color: #15306b;	
+				&_list
+					display: flex;
+					flex-wrap: wrap;
+					justify-content: space-between;
+					position: absolute;
+					bottom: 80px;
+					z-index: 1;
+					background-color: #1f408a;
+					box-shadow: 0px 0px 15px #000;
+					border: 1px solid #fff;
+					color: #fff;
+					border-radius: 4px;
+					padding: 0;
+					font-size: 12px;
+					font-weight: 100;
+					width: 260px;
+					transform: scale(0);
+					transition: transform 0.3s ease;
+					position: absolute;
+					right: 10px;
+					flex-direction: column;
+					&.visible
+						transform: scale(1);
+					&:after
+					&:before
+						top: 100%;
+						right: 15px;
+						border: solid transparent;
+						content: '';
+						height: 0;
+						width: 0;
+						position: absolute;
+						pointer-events: none;
+					&:after
+						border-color: rgba(136,183,213,0);
+						border-top-color: #1f408a;
+						border-width: 10px;
+						margin-right: 1px;
+					&:before
+						border-color: rgba(194,225,245,0);
+						border-top-color: #fff;
+						border-width: 11px;
+						margin-left: -11px;
+					& span 
+						font-size: 16px;
+						font-weight: 100;
+						padding: 10px 0;
+					& input 
+					& select
+						border: 1px solid #1f408a;
+						border-radius: 4px;
+						display: block;
+						font-family: Roboto;
+						font-size: 14px;
+						font-weight: 100;
+						margin: 0 15px 15px;
+					& select
+						width: calc(100% - 30px);
+						height: 30px;
+					& input 
+						padding: 8px 10px;
+						width: calc(100% - 50px);
 		& .fieldset__create
 			background-color: #1f408a;
 			width: 100%;
@@ -163,11 +370,11 @@
 				border: 1px solid #fff;
 				color: #fff;
 				border-radius: 50%;
-				width: 40px;
-				height: 40px;
+				width: 30px;
+				height: 30px;
 				text-align: center;
-				line-height: 40px;
-				font-size: 20px;
+				line-height: 30px;
+				font-size: 16px;
 				transition: all 0.3s ease;
 				&:hover
 					background-color: #3458a7;
@@ -181,7 +388,7 @@
 				justify-content: space-between;
 				position: absolute;
 				left: 50%;
-				bottom: 75px;
+				bottom: 55px;
 				z-index: 1;
 				background-color: #1f408a;
 				box-shadow: 0px 0px 15px #000;
@@ -251,11 +458,11 @@
 				border: 1px solid #fff;
 				color: #fff;
 				border-radius: 50%;
-				width: 40px;
-				height: 40px;
+				width: 30px;
+				height: 30px;
 				text-align: center;
-				line-height: 40px;
-				font-size: 20px;
+				line-height: 30px;
+				font-size: 16px;
 				transition: all 0.3s ease;
 				&:hover
 					background-color: #d71733;
@@ -269,8 +476,8 @@
 			border-radius: 4px;
 			box-shadow: 0px 0px 15px #000;
 			outline: none;
-			overflow: hidden;
 			position: relative;
+			overflow: hidden;
 			&:after
 				content: '';
 				border-bottom: 1px dashed #1f408a;
@@ -346,6 +553,7 @@
 						background-color: #15306b;
 			&[open]
 				border: 1px solid #1f408a;
+				overflow: visible;
 				& .fieldset__name_toggle
 					transform: scale(1, -1);
 			& .empty
@@ -401,6 +609,7 @@
 				width: 90%;
 				margin: 15px auto;
 				border: 1px solid #1f408a;
+				border-left: 0;
 				border-radius: 4px;
 				overflow: hidden;
 				position: relative;
@@ -434,6 +643,7 @@
 				display: flex;
 				align-items: center;
 				border: 1px solid #1f408a;
+				border-left: 0;
 				border-radius: 4px;
 				& input 
 					border: 1px solid #1f408a;
@@ -496,6 +706,7 @@
 			& .video
 				display: flex;
 				border: 1px solid #1f408a;
+				border-left: 0;
 				border-radius: 4px;
 				width: 90%;
 				margin: 15px auto;
@@ -526,6 +737,7 @@
 			& .audio
 				display: flex;
 				border: 1px solid #1f408a;
+				border-left: 0;
 				border-radius: 4px;
 				width: 90%;
 				margin: 15px auto;
@@ -567,6 +779,7 @@
 				max-width: 25px;
 				min-height: 100px;
 				z-index: 1;
+				align-self: stretch;
 				&__drag
 					padding: 4px 6px;
 					cursor: pointer;
@@ -585,10 +798,11 @@
 				&__delete
 					padding: 4px 7px;
 					cursor: pointer;
-					background: #BD001C;
 					box-shadow: 0px 0px 15px #000;
 					position: absolute;
 					bottom: 0;
+					background: #BD001C;
+					transition: background 0.3s ease;
 					&:hover
 						background-color: #d71733;
 						z-index: 1;
@@ -612,3 +826,9 @@
 					&_icon
 						color: #fff;
 						font-size: 15px;
+	&:hover
+		.data__controls
+			.icon
+				transform: scale(1);
+	&:active
+		z-index: 0;

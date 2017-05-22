@@ -1,5 +1,42 @@
-<div class="backdrop">
-	<div class="backdrop__name">{{data.name}}</div>
+<div class="data__controls">
+	<div class="breakConnection icon"
+		 (click)="deleteParent($event)">
+		<i class="fa fa-chain-broken breakConnection_icon" 
+		   aria-hidden="true"></i>	 				
+	</div>
+	<div class="deleteData icon"
+		 (click)="deleteData(dataItem)">
+		<i class="fa fa-trash-o deleteData_icon" 
+		   aria-hidden="true"></i>	
+	</div>
+	<div class="addChild icon"
+		 (click)="createChild()">
+		<i class="fa fa-plus addChild_icon" 
+		   aria-hidden="true"></i>	
+	</div>
+	<div class="selectParent icon"
+		 (click)="showParentList = !showParentList">
+		<i class="fa fa-code-fork selectParent_icon" 
+		   aria-hidden="true"></i>	
+	</div>
+	<div class="parentList"
+		 [class.visible]="showParentList">
+		<span>Выбор родителя</span>
+		<select [(ngModel)]="dataItem.parent"
+				(change)="showParentList = !showParentList">
+			<option value="">Не выбран</option>
+			<ng-template ngFor 
+						 let-item 
+						 [ngForOf]="dataList">
+				<option *ngIf="item !== dataItem" [value]="item.id">{{item.name}}</option>
+			</ng-template>
+		</select>
+	</div>	
+</div>
+<div class="backdrop"
+	 (mousedown)="watchOpen($event)"
+	 (mouseup)="resolveOpen($event)">
+	<div class="backdrop__name">{{dataItem.name}}</div>
 </div>
 <div class="content">
 	<div class="content__approve"
@@ -16,430 +53,136 @@
 		<input class="content__name_input"
 			   type="text"
 			   placeholder="Введите название объекта"
-			   [(ngModel)]="data.name" />
+			   [(ngModel)]="dataItem.name" />
 	</div>
-	<div class="data">
-		<details class="fieldset" open>
-			<summary class="fieldset__name">
-				<i class="fa fa-bars fieldset__name_drag" 
-				   	   aria-hidden="true"></i>
-				<input class="fieldset__name_input"
-					   type="text"
-					   placeholder="Введите название группы" />
-				<i class="fa fa-angle-double-down fieldset__name_toggle" 
-				   	   aria-hidden="true"></i>
-			</summary>
-			<div class="textarea">
-				<div class="controls">
-					<div class="controls__up">
-						<i class="fa fa-angle-up controls__up_icon" 
-					   	   aria-hidden="true"></i>
+	<div class="data"
+		 *ngIf="dataItem.content.length">
+		<ng-template ngFor 
+					 let-group 
+					 [ngForOf]="dataItem.content | orderBy: 'order'" 
+					 let-groupId="index">
+			<details class="fieldset"
+					 *ngIf="group"
+					 (mouseenter)="swapGroupOrder($event, group)">
+				<summary class="fieldset__name">
+					<i class="fa fa-bars fieldset__name_drag" 
+					   aria-hidden="true"
+					   (mousedown)="dragGroup($event, group)"></i>
+					<input class="fieldset__name_input"
+						   type="text"
+						   placeholder="Введите название группы"
+						   [(ngModel)]="group.name" />
+					<i class="fa fa-angle-double-down fieldset__name_toggle" 
+					   aria-hidden="true"></i>
+				</summary>
+				<ng-template ngFor 
+							 let-field 
+							 [ngForOf]="group.fields | orderBy: 'order'" 
+							 let-fieldId="index">
+					<div *ngIf="field"
+						 class="{{field.type}}"
+						 (mouseenter)="swapFieldOrder($event, field)">
+						<!-- Элементы управления для всех типов полей -->
+						<div class="controls">
+							<div class="controls__up"
+								 (click)="fieldOrderUp(groupId, fieldId)">
+								<i class="fa fa-angle-up controls__up_icon" 
+							   	   aria-hidden="true"></i>
+							</div>
+							<div class="controls__drag"
+								 (mousedown)="dragField($event, field)">
+								<i class="fa fa-bars controls__drag_icon" 
+							   	   aria-hidden="true"></i>
+							</div>
+							<div class="controls__down"
+								 (click)="fieldOrderDown(groupId, fieldId)">
+								<i class="fa fa-angle-down controls__down_icon" 
+							   	   aria-hidden="true"></i>
+							</div>
+							<div class="controls__delete"
+								 (click)="deleteField(groupId, fieldId)">
+								<i class="fa fa-trash-o controls__delete_icon" 
+							   	   aria-hidden="true"></i>
+							</div>
+						</div>
+						<ma-data-field [field]="field"></ma-data-field>
 					</div>
-					<div class="controls__drag">
-						<i class="fa fa-bars controls__drag_icon" 
-					   	   aria-hidden="true"></i>
+				</ng-template>
+				<div class="fieldset__create">
+					<div class="fieldset__create_list"
+						 [class.visible]="showCreateList">
+						<div class="item"
+							 (click)="addField(groupId, 'textarea')">
+							<i class="fa fa-font" aria-hidden="true"></i>
+							<span class="item__name">Описание</span>
+						</div>
+						<div class="item"
+							 (click)="addField(groupId, 'image')">
+							<i class="fa fa-picture-o" aria-hidden="true"></i>
+							<span class="item__name">Изображение</span>
+						</div>
+						<div class="item"
+							 (click)="addField(groupId, 'date')">
+							<i class="fa fa-calendar" aria-hidden="true"></i>
+							<span class="item__name">Дата</span>
+						</div>
+						<div class="item"
+							 (click)="addField(groupId, 'url')">
+							<i class="fa fa-link" aria-hidden="true"></i>
+							<span class="item__name">Ссылка</span>
+						</div>
+						<div class="item"
+							 (click)="addField(groupId, 'video')">
+							<i class="fa fa-video-camera" aria-hidden="true"></i>
+							<span class="item__name">Видео</span>
+						</div>
+						<div class="item"
+							 (click)="addField(groupId, 'audio')">
+							<i class="fa fa-headphones" aria-hidden="true"></i>
+							<span class="item__name">Аудио</span>
+						</div>
 					</div>
-					<div class="controls__down">
-						<i class="fa fa-angle-down controls__down_icon" 
-					   	   aria-hidden="true"></i>
-					</div>
-					<div class="controls__delete">
-						<i class="fa fa-trash-o controls__delete_icon" 
-					   	   aria-hidden="true"></i>
-					</div>
-				</div>			
-				<textarea placeholder="Какой-то текст..."></textarea>
-			</div>
-			<div class="image">
-				<div class="controls">
-					<div class="controls__up">
-						<i class="fa fa-angle-up controls__up_icon" 
-					   	   aria-hidden="true"></i>
-					</div>
-					<div class="controls__drag">
-						<i class="fa fa-bars controls__drag_icon" 
-					   	   aria-hidden="true"></i>
-					</div>
-					<div class="controls__down">
-						<i class="fa fa-angle-down controls__down_icon" 
-					   	   aria-hidden="true"></i>
-					</div>
-					<div class="controls__delete">
-						<i class="fa fa-trash-o controls__delete_icon" 
-					   	   aria-hidden="true"></i>
-					</div>
-				</div>				
-				<!-- <div class="empty">
-					<i class="fa fa-cloud-upload" aria-hidden="true"></i>
-					<span>Выберите изображение</span>
-					<input type="file" />
-				</div> -->			
-				<img src="/assets/images/rabbit.jpg" />
-				<i class="fa fa-upload image__change" 
-			   	   aria-hidden="true"></i>
-			</div>
-			<div class="date">
-				<div class="controls">
-					<div class="controls__up">
-						<i class="fa fa-angle-up controls__up_icon" 
-					   	   aria-hidden="true"></i>
-					</div>
-					<div class="controls__drag">
-						<i class="fa fa-bars controls__drag_icon" 
-					   	   aria-hidden="true"></i>
-					</div>
-					<div class="controls__down">
-						<i class="fa fa-angle-down controls__down_icon" 
-					   	   aria-hidden="true"></i>
-					</div>
-					<div class="controls__delete">
-						<i class="fa fa-trash-o controls__delete_icon" 
-					   	   aria-hidden="true"></i>
-					</div>
-				</div>				
-				<input type="date" />
-				<div class="date__create">
-					<i class="fa fa-plus date__create_icon" 
-				   	   aria-hidden="true"></i>
+					<i class="fa fa-plus fieldset__create_icon" 
+				   	   aria-hidden="true"
+				   	   (click)="showCreateList = !showCreateList"
+				   	   [class.opened]="showCreateList"></i>
 				</div>
-			</div>
-			<div class="url">
-				<div class="controls">
-					<div class="controls__up">
-						<i class="fa fa-angle-up controls__up_icon" 
-					   	   aria-hidden="true"></i>
-					</div>
-					<div class="controls__drag">
-						<i class="fa fa-bars controls__drag_icon" 
-					   	   aria-hidden="true"></i>
-					</div>
-					<div class="controls__down">
-						<i class="fa fa-angle-down controls__down_icon" 
-					   	   aria-hidden="true"></i>
-					</div>
-					<div class="controls__delete">
-						<i class="fa fa-trash-o controls__delete_icon" 
-					   	   aria-hidden="true"></i>
-					</div>
-				</div>				
-				<input type="url" placeholder="http://example.com" />
-				<div class="url__screenshot">
-					<div class="empty">
-						<i class="fa fa-wpexplorer" 
-						   aria-hidden="true"></i>
-						<span>Укажите ссылку</span>
-					</div>
+				<div class="fieldset__delete">
+					<i class="fa fa-trash-o fieldset__delete_icon" 
+				   	   aria-hidden="true"
+				   	   (click)="deleteGroup(groupId)"></i>
 				</div>
-			</div>				
-			<div class="video">
-				<div class="controls">
-					<div class="controls__up">
-						<i class="fa fa-angle-up controls__up_icon" 
-					   	   aria-hidden="true"></i>
-					</div>
-					<div class="controls__drag">
-						<i class="fa fa-bars controls__drag_icon" 
-					   	   aria-hidden="true"></i>
-					</div>
-					<div class="controls__down">
-						<i class="fa fa-angle-down controls__down_icon" 
-					   	   aria-hidden="true"></i>
-					</div>
-					<div class="controls__delete">
-						<i class="fa fa-trash-o controls__delete_icon" 
-					   	   aria-hidden="true"></i>
-					</div>
-				</div>	
-				<!-- <div class="empty">
-					<i class="fa fa-cloud-upload" aria-hidden="true"></i>
-					<span>Выберите видео</span>
-					<input type="file" />
-				</div> -->	
-				<video autobuffer autoloop loop controls>
-					<source src="">
-					<source src="">
-				</video>
-				<i class="fa fa-upload image__change" 
-			   	   aria-hidden="true"></i>				
-			</div>
-			<div class="audio">
-				<div class="controls">
-					<div class="controls__up">
-						<i class="fa fa-angle-up controls__up_icon" 
-					   	   aria-hidden="true"></i>
-					</div>
-					<div class="controls__drag">
-						<i class="fa fa-bars controls__drag_icon" 
-					   	   aria-hidden="true"></i>
-					</div>
-					<div class="controls__down">
-						<i class="fa fa-angle-down controls__down_icon" 
-					   	   aria-hidden="true"></i>
-					</div>
-					<div class="controls__delete">
-						<i class="fa fa-trash-o controls__delete_icon" 
-					   	   aria-hidden="true"></i>
-					</div>
-				</div>	
-				<!-- <div class="empty">
-					<i class="fa fa-cloud-upload" aria-hidden="true"></i>
-					<span>Выберите аудио</span>
-					<input type="file" />
-				</div> -->	
-				<audio autobuffer autoloop loop controls>
-					<source src="">
-					<source src="">
-				</audio>
-				<i class="fa fa-upload image__change" 
-			   	   aria-hidden="true"></i>				
-			</div>
-			<div class="fieldset__create">
-				<div class="fieldset__create_list"
-					 [class.visible]="showCreateList">
-					<div class="item">
-						<i class="fa fa-font" aria-hidden="true"></i>
-						<span class="item__name">Описание</span>
-					</div>
-					<div class="item">
-						<i class="fa fa-picture-o" aria-hidden="true"></i>
-						<span class="item__name">Изображение</span>
-					</div>
-					<div class="item">
-						<i class="fa fa-calendar" aria-hidden="true"></i>
-						<span class="item__name">Дата</span>
-					</div>
-					<div class="item">
-						<i class="fa fa-link" aria-hidden="true"></i>
-						<span class="item__name">Ссылка</span>
-					</div>
-					<div class="item">
-						<i class="fa fa-video-camera" aria-hidden="true"></i>
-						<span class="item__name">Видео</span>
-					</div>
-					<div class="item">
-						<i class="fa fa-headphones" aria-hidden="true"></i>
-						<span class="item__name">Аудио</span>
-					</div>
-				</div>
-				<i class="fa fa-plus fieldset__create_icon" 
-			   	   aria-hidden="true"
-			   	   (click)="showCreateList = !showCreateList"
-			   	   [class.opened]="showCreateList"></i>
-			</div>
-			<div class="fieldset__delete">
-				<i class="fa fa-trash-o fieldset__delete_icon" 
-			   	   aria-hidden="true"></i>
-			</div>
-		</details>
-		<details class="fieldset">
-			<summary class="fieldset__name">
-				<i class="fa fa-bars fieldset__name_drag" 
-				   	   aria-hidden="true"></i>
-				<input class="fieldset__name_input"
-					   type="text"
-					   placeholder="Введите название группы" />
-				<i class="fa fa-angle-double-down fieldset__name_toggle" 
-				   	   aria-hidden="true"></i>
-			</summary>
-			<div class="textarea">
-				<div class="controls">
-					<div class="controls__up">
-						<i class="fa fa-angle-up controls__up_icon" 
-					   	   aria-hidden="true"></i>
-					</div>
-					<div class="controls__drag">
-						<i class="fa fa-bars controls__drag_icon" 
-					   	   aria-hidden="true"></i>
-					</div>
-					<div class="controls__down">
-						<i class="fa fa-angle-down controls__down_icon" 
-					   	   aria-hidden="true"></i>
-					</div>
-					<div class="controls__delete">
-						<i class="fa fa-trash-o controls__delete_icon" 
-					   	   aria-hidden="true"></i>
-					</div>
-				</div>	
-				<textarea placeholder="Какой-то текст..."></textarea>	
-			</div>
-			<div class="image">
-				<div class="controls">
-					<div class="controls__up">
-						<i class="fa fa-angle-up controls__up_icon" 
-					   	   aria-hidden="true"></i>
-					</div>
-					<div class="controls__drag">
-						<i class="fa fa-bars controls__drag_icon" 
-					   	   aria-hidden="true"></i>
-					</div>
-					<div class="controls__down">
-						<i class="fa fa-angle-down controls__down_icon" 
-					   	   aria-hidden="true"></i>
-					</div>
-					<div class="controls__delete">
-						<i class="fa fa-trash-o controls__delete_icon" 
-					   	   aria-hidden="true"></i>
-					</div>
-				</div>	
-				<div class="empty">
-					<i class="fa fa-cloud-upload" aria-hidden="true"></i>
-					<span>Выберите изображение</span>
-					<input type="file" />
-				</div>
-				<!-- <img src="/assets/images/rabbit.jpg" /> -->
-			</div>
-			<div class="date">
-				<div class="controls">
-					<div class="controls__up">
-						<i class="fa fa-angle-up controls__up_icon" 
-					   	   aria-hidden="true"></i>
-					</div>
-					<div class="controls__drag">
-						<i class="fa fa-bars controls__drag_icon" 
-					   	   aria-hidden="true"></i>
-					</div>
-					<div class="controls__down">
-						<i class="fa fa-angle-down controls__down_icon" 
-					   	   aria-hidden="true"></i>
-					</div>
-					<div class="controls__delete">
-						<i class="fa fa-trash-o controls__delete_icon" 
-					   	   aria-hidden="true"></i>
-					</div>
-				</div>				
-				<input type="date" />
-				<div class="date__create">
-					<i class="fa fa-plus date__create_icon" 
-				   	   aria-hidden="true"></i>
-				</div>
-			</div>
-			<div class="url">
-				<div class="controls">
-					<div class="controls__up">
-						<i class="fa fa-angle-up controls__up_icon" 
-					   	   aria-hidden="true"></i>
-					</div>
-					<div class="controls__drag">
-						<i class="fa fa-bars controls__drag_icon" 
-					   	   aria-hidden="true"></i>
-					</div>
-					<div class="controls__down">
-						<i class="fa fa-angle-down controls__down_icon" 
-					   	   aria-hidden="true"></i>
-					</div>
-					<div class="controls__delete">
-						<i class="fa fa-trash-o controls__delete_icon" 
-					   	   aria-hidden="true"></i>
-					</div>
-				</div>				
-				<input type="url" placeholder="http://example.com" />
-				<div class="url__screenshot">
-					<div class="empty">
-						<i class="fa fa-wpexplorer" 
-						   aria-hidden="true"></i>
-						<span>Укажите ссылку</span>
-					</div>
-				</div>
-			</div>					
-			<div class="video">
-				<div class="controls">
-					<div class="controls__up">
-						<i class="fa fa-angle-up controls__up_icon" 
-					   	   aria-hidden="true"></i>
-					</div>
-					<div class="controls__drag">
-						<i class="fa fa-bars controls__drag_icon" 
-					   	   aria-hidden="true"></i>
-					</div>
-					<div class="controls__down">
-						<i class="fa fa-angle-down controls__down_icon" 
-					   	   aria-hidden="true"></i>
-					</div>
-					<div class="controls__delete">
-						<i class="fa fa-trash-o controls__delete_icon" 
-					   	   aria-hidden="true"></i>
-					</div>
-				</div>
-				<div class="empty">
-					<i class="fa fa-cloud-upload" aria-hidden="true"></i>
-					<span>Выберите видео</span>
-					<input type="file" />
-				</div>
-				<!-- <video autobuffer autoloop loop controls>
-					<source src="">
-					<source src="">
-				</video> -->
-			</div>
-			<div class="audio">
-				<div class="controls">
-					<div class="controls__up">
-						<i class="fa fa-angle-up controls__up_icon" 
-					   	   aria-hidden="true"></i>
-					</div>
-					<div class="controls__drag">
-						<i class="fa fa-bars controls__drag_icon" 
-					   	   aria-hidden="true"></i>
-					</div>
-					<div class="controls__down">
-						<i class="fa fa-angle-down controls__down_icon" 
-					   	   aria-hidden="true"></i>
-					</div>
-					<div class="controls__delete">
-						<i class="fa fa-trash-o controls__delete_icon" 
-					   	   aria-hidden="true"></i>
-					</div>
-				</div>
-				<div class="empty">
-					<i class="fa fa-cloud-upload" aria-hidden="true"></i>
-					<span>Выберите аудио</span>
-					<input type="file" />
-				</div>
-				<!-- <audio autobuffer autoloop loop controls>
-					<source src="">
-					<source src="">
-				</audio> -->
-			</div>
-			<div class="fieldset__create">
-				<div class="fieldset__create_list"
-					 [class.visible]="showCreateList">
-					<div class="item">
-						<i class="fa fa-font" aria-hidden="true"></i>
-						<span class="item__name">Описание</span>
-					</div>
-					<div class="item">
-						<i class="fa fa-picture-o" aria-hidden="true"></i>
-						<span class="item__name">Изображение</span>
-					</div>
-					<div class="item">
-						<i class="fa fa-calendar" aria-hidden="true"></i>
-						<span class="item__name">Дата</span>
-					</div>
-					<div class="item">
-						<i class="fa fa-link" aria-hidden="true"></i>
-						<span class="item__name">Ссылка</span>
-					</div>
-					<div class="item">
-						<i class="fa fa-video-camera" aria-hidden="true"></i>
-						<span class="item__name">Видео</span>
-					</div>
-					<div class="item">
-						<i class="fa fa-headphones" aria-hidden="true"></i>
-						<span class="item__name">Аудио</span>
-					</div>
-				</div>
-				<i class="fa fa-plus fieldset__create_icon" 
-			   	   aria-hidden="true"
-			   	   (click)="showCreateList = !showCreateList"
-			   	   [class.opened]="showCreateList"></i>
-			</div>
-			<div class="fieldset__delete">
-				<i class="fa fa-trash-o fieldset__delete_icon" 
-			   	   aria-hidden="true"></i>
-			</div>
-		</details>		
+			</details>	
+		</ng-template>
 	</div>
-	<div class="content__create">
-		<i class="fa fa-plus content__create_icon" 
-	   	   aria-hidden="true"></i>
+	<div class="content__controls">
+		<div class="content__controls_delete"
+			 (click)="deleteData(dataItem)">
+			<i class="fa fa-trash-o content__controls_delete_icon" 
+		   	   aria-hidden="true"></i>
+		</div>	
+		<div class="content__controls_create"
+			 (click)="addGroup()">
+			<i class="fa fa-plus content__controls_create_icon" 
+		   	   aria-hidden="true"></i>
+		</div>
+		<div class="content__controls_parent"
+			 (click)="showParentList = !showParentList">
+			<i class="fa fa-code-fork content__controls_parent_icon" 
+		   	   aria-hidden="true"></i>
+		</div>		
+		<div class="content__controls_parent_list"
+			 [class.visible]="showParentList">
+			<span>Выбор родителя</span>
+			<select [(ngModel)]="dataItem.parent"
+					(change)="showParentList = !showParentList">
+				<option value="">Не выбран</option>
+				<ng-template ngFor 
+							 let-item 
+							 [ngForOf]="dataList">
+					<option *ngIf="item !== dataItem" [value]="item.id">{{item.name}}</option>
+				</ng-template>
+			</select>
+		</div>
 	</div>
 </div>

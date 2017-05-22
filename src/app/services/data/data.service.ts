@@ -31,18 +31,17 @@ export class DataService {
 		return this.http.get(this.apiUrl)
 					.map(response => response.json().data.filter(d => d.project === id))
 					.catch(this.handleError);
-					// .toPromise()
-					// .then(response => response.json().data.filter(d => d.project === id) as DataComponent[])
-					// .catch(this.handleError);
 	}
 
-		// delete(id: number): Promise<void> {
-		// 	const url = `${this.apiUrl}/${id}`;
-		// 	return this.http.delete(url, {headers: this.headers})
-		// 				.toPromise()
-		// 				.then(() => null)
-		// 				.catch(this.handleError);
-		// }  	
+	delete(id: number) {
+		const url = `${this.apiUrl}/${id}`;
+		return this.http.delete(url, {headers: this.headers})
+					.map(response => response.json())
+					.catch(this.handleError);
+					// .toPromise()
+					// .then(() => null)
+					// .catch(this.handleError);
+	}  	
 
 	create(name: string, projectId: number): Observable<DataComponent> {
 		return this.http.post(
@@ -54,7 +53,8 @@ export class DataService {
 								y: null
 							},
 							fullScreen: false,
-							project: projectId
+							project: projectId,
+							content: []
 						}), 
 						{headers: this.headers}
 					)

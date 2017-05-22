@@ -18,6 +18,8 @@ export class DataComponent {
 	};
 	fullScreen: boolean;
 	project: number;
+	parent: number;
+	content: any;
 	// content: [{
 	// 	name: string,
 	// 	order: number,

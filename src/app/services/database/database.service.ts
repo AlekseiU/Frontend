@@ -14,7 +14,9 @@ export class DatabaseService implements InMemoryDbService {
 					y: null
 				},
 				fullScreen: false,
-				project: 13
+				project: 13,
+				parent: null,
+				content: []
 		  	},
 			{
 		  		id: 2, 
@@ -24,7 +26,42 @@ export class DatabaseService implements InMemoryDbService {
 					y: null
 				},
 				fullScreen: false,
-				project: 12
+				project: 12,
+				parent: 3,
+				content: [{
+					name: "Заголовок",
+					order: 0,
+					fields: [{
+						type: "textarea",
+						value: "Описание",
+						order: 0
+					}, 
+					{
+						type: "image",
+						value: "/assets/images/rabbit.jpg",
+						order: 2
+					}, 
+					{
+						type: "url",
+						value: "",
+						order: 1
+					},
+					{
+						type: "date",
+						value: "2017-01-27",
+						order: 4
+					},
+					{
+						type: "video",
+						value: "",
+						order: 3
+					},
+					{
+						type: "audio",
+						value: "",
+						order: 5
+					}]
+				}]
 			},
 		  	{
 		  		id: 3, 
@@ -34,7 +71,9 @@ export class DatabaseService implements InMemoryDbService {
 					y: 100
 				},
 				fullScreen: false,
-				project: 12
+				project: 12,
+				parent: null,
+				content: []
 		  	}
 		];
 		let projects: ProjectComponent[] = [

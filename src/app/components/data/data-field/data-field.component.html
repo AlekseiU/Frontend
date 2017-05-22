@@ -1,0 +1,80 @@
+<!-- Разметка для поля описания -->
+<ng-template [ngIf]="field.type === 'textarea'">
+	<textarea placeholder="Какой-то текст..."
+			  [(ngModel)]="field.value"></textarea>
+</ng-template> 
+<!-- Разметка для изображения -->
+<ng-template [ngIf]="field.type === 'image'">
+	<div *ngIf="!field.value"
+		 class="empty">
+		<i class="fa fa-cloud-upload" aria-hidden="true"></i>
+		<span>Выберите изображение</span>
+		<input type="file" />
+	</div>			
+	<img *ngIf="field.value"
+		 [src]="field.value" />
+	<i class="fa fa-upload image__change" 
+   	   aria-hidden="true"
+   	   *ngIf="field.value"></i>
+	</ng-template>
+	<!-- Разметка для поля ссылки -->
+<ng-template [ngIf]="field.type === 'url'">
+	<input type="url" 
+		   placeholder="http://example.com"
+		   [(ngModel)]="field.value" />
+	<div class="url__screenshot">
+		<div class="empty"
+			 *ngIf="!field.value">
+			<i class="fa fa-wpexplorer" 
+			   aria-hidden="true"></i>
+			<span>Укажите ссылку</span>
+		</div>
+	</div>
+</ng-template> 
+<!-- Разметка для поля даты -->
+<ng-template [ngIf]="field.type === 'date'">
+	<input type="date" 
+		   [(ngModel)]="field.value" />
+	<div class="date__create">
+		<i class="fa fa-plus date__create_icon" 
+	   	   aria-hidden="true"></i>
+	</div>
+</ng-template>
+<!-- Разметка для поля видео -->
+<ng-template [ngIf]="field.type === 'video'">
+	<div class="empty"
+		 *ngIf="!field.value">
+		<i class="fa fa-cloud-upload" aria-hidden="true"></i>
+		<span>Выберите видео</span>
+		<input type="file" />
+	</div>	
+	<video *ngIf="field.value"
+		   autobuffer 
+		   autoloop 
+		   loop 
+		   controls>
+		<source [src]="field.value">
+	</video>
+	<i class="fa fa-upload image__change" 
+   	   aria-hidden="true"
+   	   *ngIf="field.value"></i>		
+</ng-template>
+<!-- Разметка для поля аудио -->
+<ng-template [ngIf]="field.type === 'audio'">
+	<div class="empty"
+		 *ngIf="!field.value">
+		<i class="fa fa-cloud-upload" aria-hidden="true"></i>
+		<span>Выберите аудио</span>
+		<input type="file" />
+	</div>	
+	<audio *ngIf="field.value"
+		   autobuffer 
+		   autoloop 
+		   loop 
+		   controls>
+		<source [src]="field.value">
+	</audio>
+	<i class="fa fa-upload image__change" 
+   	   aria-hidden="true"
+   	   *ngIf="field.value"></i>					
+</ng-template>

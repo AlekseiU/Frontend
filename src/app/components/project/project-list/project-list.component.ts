@@ -31,7 +31,13 @@ export class ProjectListComponent implements OnInit {
 	@Input()
     projects: ProjectComponent[];
     @Input()
-    default;
+    default: ProjectComponent;
+
+	/*********************/
+	/* Выходные значения */
+	/*********************/
+	@Output() 
+    selected = new EventEmitter<any>();    
 
     /****************************/
 	/* Инициализация переменных */
@@ -39,7 +45,7 @@ export class ProjectListComponent implements OnInit {
 	loading: boolean = false;
 	settings: object;
 	visibility: boolean;
-	selectedProject: ProjectComponent;
+	selectedProject = {};
 	defaultSubscription;
 
 	constructor (
@@ -83,7 +89,7 @@ export class ProjectListComponent implements OnInit {
 		this.selected.emit({
 			project: project
 		});
-		this.router.navigate(['/workplace', this.selectedProject.id]);
+		this.router.navigate(['/workplace', project.id]);
 	}
 
 	hide() {
@@ -94,17 +100,12 @@ export class ProjectListComponent implements OnInit {
 	/* Инициализация компонента */
 	/****************************/
 	ngOnChanges() {
-		
+		if (this.default) {
+			this.select(this.default);
+		}
 	}
 
 	ngOnInit(): void {
-		// this.selectedProject = this.default;
 		this.getSetting();
 	}
-
-	/*********************/
-	/* Выходные значения */
-	/*********************/
-	@Output() 
-    selected = new EventEmitter<any>();
 }

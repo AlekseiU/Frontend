@@ -21,18 +21,50 @@
 			 [class.visible]="data.length"
 			 [class.fullScreen]="lockScale"
 			 (wheel)="wheel($event)"
+			 (mousedown)="startDragCanvas(item)"
 			 *ngIf="data">
-			<ma-data-detail 
-				*ngFor="let item of data"
-				[data]="item"
-				(mousedown)="drag(item)"
-				[style.left.px]="item.coordinates.x || defaultX"
-				[style.top.px]="item.coordinates.y || defaultY"
-				[class.fullScreen]="item.fullScreen"
-				[class.grabbing]="dragging"
-			    [style.transform]="scaleStyle">
-			</ma-data-detail>
+			<div class="canvas"
+				 [style.transform]="scaleStyle">
+				<ma-data-detail 
+					*ngFor="let item of data; let i=index"
+					[dataList]="data"
+					[dataItem]="item"
+					[style.left.px]="item.coordinates.x || defaultX"
+					[style.top.px]="item.coordinates.y || defaultY"
+					[class.fullScreen]="item.fullScreen"
+					[class.grabbing]="dragging"
+					[class.linking]="item.linking"
+					(mousedown)="dragData(item)"
+					(mouseover)="linkData(item)"
+					(toogleFullscreen)="handleToogleFullscreen($event)"
+					(delete)="data.splice(i,1)"
+					(childCreated)="handleChildCreated($event)">
+				</ma-data-detail>
+				<svg class="connection"
+					 height="100%" 
+					 width="100%"
+					 *ngIf="data">
+					<ng-template ngFor 
+								 let-item 
+								 [ngForOf]="data">
+						<svg:g *ngIf="item.parent && findParent(item.parent)"
+							   class="connection__item">
+							<svg:line class="connection__line"
+									  [attr.x1]="item.coordinates.x + 50"
+									  [attr.y1]="item.coordinates.y + 50"
+									  [attr.x2]="findParent(item.parent).coordinates.x + 50"
+									  [attr.y2]="findParent(item.parent).coordinates.y + 50" />
+						</svg:g>
+					</ng-template>
+				</svg>
+			</div>
 		</div>
+		<ma-range class="vertical"
+				  [value]="scaleOrigin"
+				  [min]="0"
+				  [max]="2"
+				  [step]="0.01"
+				  (scale)="handleScale($event)"></ma-range>
 	</div>	
 </div>
 
