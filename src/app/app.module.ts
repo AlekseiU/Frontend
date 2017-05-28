@@ -25,8 +25,12 @@ import { DataComponent } from './components/data/data.component';
 import { DataDetailComponent } from './components/data/data-detail/data-detail.component';
 import { DataFieldComponent } from './components/data/data-field/data-field.component';
 // UI
-import { LoaderComponent } from './components/ui/loader/loader.component';
-import { RangeComponent } from './components/ui/range/range.component';
+import { LoaderComponent } from './ui/loader/loader.component';
+import { RangeComponent } from './ui/range/range.component';
+import { TooltipComponent } from './ui/tooltip/tooltip.component';
+import { TooltipDirective } from './ui/tooltip/tooltip.directive';
+import { DialogComponent } from './ui/dialog/dialog.component';
+import { DialogDirective } from './ui/dialog/dialog.directive';
 
 // Order plugin
 import { Ng2OrderModule } from 'ng2-order-pipe';
@@ -45,7 +49,15 @@ import { Ng2OrderModule } from 'ng2-order-pipe';
     ProjectDetailComponent,
     DataDetailComponent,
     DataFieldComponent,
-    RangeComponent
+    RangeComponent,
+    TooltipComponent,
+    TooltipDirective,
+    DialogComponent,
+    DialogDirective
+  ],
+  entryComponents: [
+    TooltipComponent,
+    DialogComponent,
   ],
   imports: [
     BrowserModule,

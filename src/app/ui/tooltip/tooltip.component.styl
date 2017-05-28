@@ -1,0 +1,40 @@
+:host
+	font-size: 12px;
+	max-width: 300px;
+	padding: 12px 16px;
+	position: fixed;
+	visibility: hidden;
+	white-space: pre-line;
+	word-wrap: break-word;
+	box-sizing: border-box;
+	z-index: 99999;
+	color: #1f408a;
+	font-size: 12px;
+	font-weight: 100;
+	border-radius: 4px;
+	background-color: #1f408a;
+	box-shadow: 0px 0px 15px #000;
+	border: 1px solid #fff;
+	color: #fff;
+	&:before
+	&:after
+		right: 100%;
+		top: calc(50% - 10px);
+		transform: rotate(90deg);
+		border: solid transparent;
+		content: '';
+		height: 0;
+		width: 0;
+		position: absolute;
+		pointer-events: none;
+	&:after
+		border-color: rgba(136,183,213,0);
+		border-top-color: #1f408a;
+		border-width: 10px;
+		margin-left: -10px;
+	&:before
+		border-color: rgba(194,225,245,0);
+		border-top-color: #fff;
+		border-width: 11px;
+		margin-left: -11px;
+		margin-top: -1px;
