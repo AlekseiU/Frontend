@@ -14,18 +14,20 @@
 					<button class="search__button">Найти</button>
 				</div>
 			</div>
-			<div class="help">
+			<div class="help"
+				 (click)="openHelp()">
 				<i class="fa fa-question help__icon" 
 				   aria-hidden="true"></i>
 				<span class="settings__title">Справка</span>
 			</div>
-			<div class="account">
+			<div class="account"
+				 (click)="openProfile()">
 				<i class="fa fa-user account__icon" 
 				   aria-hidden="true"></i>
 				<span class="settings__title">Профиль</span>
 			</div>			
 			<div class="settings"
-				 [maDialog]="'/dashboard'">
+				 (click)="openSettings()">
 				<i class="fa fa-cogs settings__icon" 
 				   aria-hidden="true"></i>
 				<span class="settings__title">Настройки</span>

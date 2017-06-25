@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  	selector: 'ma-loader',
+  	selector: 'loader',
   	templateUrl: './loader.component.html',
   	styleUrls: ['./loader.component.styl']
 })

@@ -1,64 +1,8 @@
-<ma-project-list 
+<project-list 
 	[(default)]="project" 
 	[(projects)]="projects" 
 	(selected)="selectProject($event)">
-</ma-project-list>
-<ma-project-detail 
+</project-list>
+<project-detail 
 	[(project)]="project">
-</ma-project-detail>
-
-<!-- <div class="container"
-	 *ngIf="project">
-	<div class="name">
-		<input class="name__input"
-			   type="text"
-			   placeholder="Введите название проекта"
-			   [(ngModel)]="project.name" />
-	</div>
-	<div class="dataList">
-		<div class="createData"
-			 [class.collapsed]="data.length">
-			<i class="fa fa-plus createData__icon" 
-			   aria-hidden="true"
-			   (click)="createData()"></i>
-		</div>	
-		<div class="container"
-			 [class.visible]="data">
-			<div class="data"
-				 *ngFor="let item of data"
-				 [class.fullScreen]="item.fullScreen"
-				 [(style.left.px)]="item.coordinates.x"
-				 [(style.top.px)]="item.coordinates.y">
-				<div class="backdrop"
-					 (click)="toggleFullScreen(item)">
-					<div class="backdrop__name" [(ngModel)]="item.name"></div>
-				</div>
-				<div class="content">
-					<div class="content__close"
-						 (click)="toggleFullScreen(item)">
-						<i class="fa fa-check content__close_icon" 
-							   aria-hidden="true"></i>	 	
-					</div>
-					<div class="content__name">
-						<input class="content__name_input"
-							   type="text"
-							   placeholder="Введите название объекта"
-							   [(ngModel)]="item.name" />
-					</div>
-					<div class="content__create">
-						<i class="fa fa-plus content__create_icon" 
-					   	   aria-hidden="true"
-					   	   (click)="createData()"></i>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>	
-</div>
-
-<div class="container"
-	 *ngIf="!project">
-	<span class="selectProject">Выберите проект из списка слева</span>
-</div>
-
-<ma-loader *ngIf="loading"></ma-loader> -->
+</project-detail>

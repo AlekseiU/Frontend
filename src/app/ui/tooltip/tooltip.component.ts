@@ -2,7 +2,7 @@ import { Component, AfterViewChecked, Input, ElementRef } from '@angular/core';
 
 
 @Component({
-  	selector: 'ma-tooltip',
+  	selector: 'tooltip',
   	template: '{{content}}',
   	styleUrls: ['./tooltip.component.styl']
 })

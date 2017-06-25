@@ -15,7 +15,7 @@ import { ProjectComponent } from '../../project/project.component';
 
 
 @Component({
-	selector: 'ma-project-list',
+	selector: 'project-list',
 	templateUrl: './project-list.component.html',
 	styleUrls: ['./project-list.component.styl'],
 	providers: [
@@ -73,16 +73,14 @@ export class ProjectListComponent implements OnInit {
  	     	});
 	}
 
-	// delete(project: ProjectComponent): void {
-	//     this.projectService
-	//         .delete(project.id)
-	//         .then(() => {
-	//           	this.projects = this.projects.filter(p => p !== project);
-	//           	if (this.selectedProject === project) { 
-	//           		this.selectedProject = null; 
-	//           	}
-	//         });
-	// }	
+	delete(index: number, project: ProjectComponent): void {
+	    this.projectService
+	        .delete(project.id)
+	        .subscribe((response) => {
+	        	console.log(response);
+	        	this.projects.splice(index, 1);
+	        });
+	}
 
 	select(project: ProjectComponent) {
 		this.selectedProject = project;

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-	selector: 'ma-data',
+	selector: 'data',
 	templateUrl: './data.component.html',
 	styleUrls: ['./data.component.styl']
 })

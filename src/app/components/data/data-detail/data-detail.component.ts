@@ -4,7 +4,7 @@ import { DataService } from '../../../services/data/data.service';
 import { DataComponent } from '../data.component';
 
 @Component({
-  	selector: 'ma-data-detail',
+  	selector: 'data-detail',
   	templateUrl: './data-detail.component.html',
   	styleUrls: ['./data-detail.component.styl'],
   	providers: [

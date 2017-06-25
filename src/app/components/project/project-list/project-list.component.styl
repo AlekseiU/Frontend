@@ -43,6 +43,7 @@
 			justify-content: flex-start;
 			user-select: none;
 			outline: none;	
+			position: relative;
 			&:hover
 				background-color: #3458a7;
 				z-index: 1;
@@ -69,6 +70,29 @@
 				&_count
 					display: inline-block;
 					padding-left: 5px;
+			&__delete
+				background-color: #bd001c;
+				position: absolute;
+				left: 0;
+				top: 0;
+				height: 100%;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				font-size: 16px;
+				width: 8px;
+				cursor: pointer;
+				transition: all 0.3s ease;
+				&_icon 
+					transform: scale(0);
+					transition: all 0.3s ease;
+				&:hover
+					background-color: #d71733;
+					width: 33px;
+					& .project__delete_icon 
+						transform: scale(1);
+				&:active
+					background-color: #b20821;
 		& .create
 			order: -1;
 			&__icon

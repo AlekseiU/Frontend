@@ -7,7 +7,7 @@ import { DataService } from '../../../services/data/data.service';
 import { DataComponent } from '../../data/data.component';
 
 @Component({
-	selector: 'ma-project-detail',
+	selector: 'project-detail',
 	templateUrl: './project-detail.component.html',
 	styleUrls: ['./project-detail.component.styl'],
 	providers: [
@@ -38,11 +38,6 @@ export class ProjectDetailComponent implements OnInit {
 	/***********************/
 	/* Обработчики событий */
 	/***********************/
-	// @HostListener('mousedown', ['$event']) mouseDown(e) {
- //  		if (!this.draggable) {
-	//   		this.dragCanvas = true;
-	// 	}
- //  	}
   	@HostListener('mouseup', ['$event']) mouseUp(e) {
   		if (this.draggable) {
 	  		if (!this.dragInProcess) {
@@ -143,6 +138,13 @@ export class ProjectDetailComponent implements OnInit {
 		this.scaleStyle = 'scale(' + this.scaleOrigin + ')';
 	}
 
+	autosave() {
+		this.projectService.update(this.project)
+			// .subscribe(() => {
+			// 	console.log(this.project);
+			// });
+	}
+
 	/****************************/
 	/* Инициализация компонента */
 	/****************************/
@@ -154,7 +156,11 @@ export class ProjectDetailComponent implements OnInit {
 		}
 	}
 
-	ngOnInit() {}
+	ngOnInit() {
+		setInterval(() => {
+			this.autosave();
+		}, 5000);
+	}
 }
 
 /********* ToDo: **********/

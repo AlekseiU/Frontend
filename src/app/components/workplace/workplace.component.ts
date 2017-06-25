@@ -21,7 +21,7 @@ import { DataService } from '../../services/data/data.service';
 import { DataComponent } from '../data/data.component';
 
 @Component({
-	selector: 'ma-workplace',
+	selector: 'workplace',
 	templateUrl: './workplace.component.html',
 	styleUrls: ['./workplace.component.styl'],
 	providers: [

@@ -20,12 +20,11 @@ export class DataService {
 		private http: Http
 	){}
 
-	// getAll(): Promise<DataComponent[]> {
-	// 		return this.http.get(this.apiUrl)
-	// 						.toPromise()
-	// 						.then(response => response.json().data as DataComponent[])
-	// 						.catch(this.handleError);		
-	// }
+	getAll(): Observable<DataComponent[]> {
+			return this.http.get(this.apiUrl)
+							.map(response => response.json())
+							.catch(this.handleError);
+	}
 
 	getByProject(id: number) {
 		return this.http.get(this.apiUrl)
@@ -38,9 +37,6 @@ export class DataService {
 		return this.http.delete(url, {headers: this.headers})
 					.map(response => response.json())
 					.catch(this.handleError);
-					// .toPromise()
-					// .then(() => null)
-					// .catch(this.handleError);
 	}  	
 
 	create(name: string, projectId: number): Observable<DataComponent> {
@@ -72,9 +68,5 @@ export class DataService {
 					)
 					.map(() => data)
 					.catch(this.handleError);
-	}  	
-
-		// toggleFullScreen(data: DataComponent):void {
-		// 	data.fullScreen = !data.fullScreen;
-		// }
+	}
 }

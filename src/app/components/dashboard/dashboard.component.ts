@@ -4,7 +4,7 @@ import { ProjectService } from '../../services/project/project.service';
 import { ProjectComponent } from '../project/project.component';
 
 @Component({
-	selector: 'ma-dashboard',
+	selector: 'dashboard',
 	templateUrl: './dashboard.component.html',
 	styleUrls: ['./dashboard.component.styl'],
 	providers: [

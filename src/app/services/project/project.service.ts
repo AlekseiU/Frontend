@@ -38,13 +38,15 @@ export class ProjectService {
 						
 	}
 
-		// delete(id: number): Promise<void> {
-		// 	const url = `${this.apiUrl}/${id}`;
-		// 	return this.http.delete(url, {headers: this.headers})
-		// 				.toPromise()
-		// 				.then(() => null)
-		// 				.catch(this.handleError);
-		// }	
+	delete(id: number): Observable<void> {
+		const url = `${this.apiUrl}/${id}`;
+		return this.http.delete(url, {headers: this.headers})
+					.map(response => response.json())
+					.catch(this.handleError);
+					// .toPromise()
+					// .then(() => null)
+					// .catch(this.handleError);
+	}	
 
 	create(name: string): Observable<ProjectComponent> {
 		return this.http
@@ -63,16 +65,18 @@ export class ProjectService {
 					// .catch(this.handleError);
 	}
 
-		// update(project: ProjectComponent): Promise<ProjectComponent> {
-		// 	const url = `${this.apiUrl}/${project.id}`;
-		// 	return this.http
-		// 				.put(
-		// 					url, 
-		// 					JSON.stringify(project), 
-		// 					{headers: this.headers}
-		// 				)
-		// 				.toPromise()
-		// 				.then(() => project)
-		// 				.catch(this.handleError);
-		// }
+	update(project: ProjectComponent): Observable<ProjectComponent> {
+		const url = `${this.apiUrl}/${project.id}`;
+		return this.http
+					.put(
+						url, 
+						JSON.stringify(project), 
+						{headers: this.headers}
+					)
+					.map(() => project)
+					.catch(this.handleError);
+					// .toPromise()
+					// .then(() => project)
+					// .catch(this.handleError);
+	}
 }
