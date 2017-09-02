@@ -38,7 +38,7 @@
 					(mousedown)="dragData(item)"
 					(mouseover)="linkData(item)"
 					(toogleFullscreen)="handleToogleFullscreen($event)"
-					(delete)="data.splice(i,1)"
+					(delete)="deleteData(item, i)"
 					(childCreated)="handleChildCreated($event)">
 				</data-detail>
 				<svg class="connection"

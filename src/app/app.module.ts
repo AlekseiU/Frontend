@@ -4,10 +4,6 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
-// Imports for loading & configuring the in-memory web api
-import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { DatabaseService }  from './services/database/database.service';
-
 // Angular material
 import { MaterialModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -43,6 +39,8 @@ import { LoaderComponent } from './ui/loader/loader.component';
 import { RangeComponent } from './ui/range/range.component';
 import { TooltipComponent } from './ui/tooltip/tooltip.component';
 import { TooltipDirective } from './ui/tooltip/tooltip.directive';
+// Helpers
+import { ResponseService } from './services/response/response.service';
 
 @NgModule({
   declarations: [
@@ -75,7 +73,6 @@ import { TooltipDirective } from './ui/tooltip/tooltip.directive';
     BrowserModule,
     FormsModule,
     HttpModule,
-    InMemoryWebApiModule.forRoot(DatabaseService),
     AppRoutingModule,
     Ng2OrderModule,
     MaterialModule,
@@ -84,7 +81,9 @@ import { TooltipDirective } from './ui/tooltip/tooltip.directive';
   exports: [
     SettingsComponent
   ],
-  providers: [],
+  providers: [
+    ResponseService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

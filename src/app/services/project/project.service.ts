@@ -1,82 +1,71 @@
 import { Injectable } from '@angular/core';
 import { Headers, Http } from '@angular/http';
+import { ResponseService } from '../response/response.service';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/toPromise';
 
 import { ProjectComponent } from '../../components/project/project.component';
 
 @Injectable()
 export class ProjectService {
-	private headers = new Headers({'Content-Type': 'application/json'});
-	private apiUrl = 'api/projects';  // URL to web api
-	private handleError(error: any): Promise<any> {
-		console.error('An error occurred', error); // for demo purposes only
-		return Promise.reject(error.message || error);
-	}  	
+    private headers = new Headers({ 'Content-Type': 'application/json' });
+    private apiUrl = 'http://localhost:3000/projects';  // URL to web api
 
-	constructor(
-		private http: Http
-	){}
+    private handleError(error: any): Promise<any> {
+        console.error('An error occurred', error); // for demo purposes only
+        return Promise.reject(error.message || error);
+    }
 
-	getProjects(): Observable<ProjectComponent[]> {
-		return this.http.get(this.apiUrl)
-					.map(response => response.json().data)
-					.catch(this.handleError);
-							// .toPromise()
-							// .subscribe(response => response.json().data as ProjectComponent[])				
-	}
+    constructor(
+        private http: Http,
+        private response: ResponseService
+    ) { }
 
-	getProject(id: number): Observable<ProjectComponent> {
-		const url = `${this.apiUrl}/${id}`;
-			return this.http.get(url)
-					.map(response => response.json().data)
-					.catch(this.handleError);
-					// .toPromise()
-					// .then(response => response.json().data as ProjectComponent)
-						
-	}
+    list(): Observable<ProjectComponent[]> {
+        return this.http.get(this.apiUrl)
+                .map(r => this.response.parse(r))
+                .catch(this.handleError);
+    }
 
-	delete(id: number): Observable<void> {
-		const url = `${this.apiUrl}/${id}`;
-		return this.http.delete(url, {headers: this.headers})
-					.map(response => response.json())
-					.catch(this.handleError);
-					// .toPromise()
-					// .then(() => null)
-					// .catch(this.handleError);
-	}	
+    item(id: number): Observable<ProjectComponent> {
+        const url = `${this.apiUrl}/${id}`;
 
-	create(name: string): Observable<ProjectComponent> {
-		return this.http
-					.post(
-						this.apiUrl, 
-						JSON.stringify({
-							name: name,
-							pages: 0
-						}), 
-						{headers: this.headers}
-					)
-					.map(response => response.json().data as ProjectComponent)
-					.catch(this.handleError);
-					// .toPromise()
-					// .then(result => result.json().data as ProjectComponent)
-					// .catch(this.handleError);
-	}
+        return this.http.get(url)
+                .map(r => this.response.parse(r))
+                .catch(this.handleError);
+    }
 
-	update(project: ProjectComponent): Observable<ProjectComponent> {
-		const url = `${this.apiUrl}/${project.id}`;
-		return this.http
-					.put(
-						url, 
-						JSON.stringify(project), 
-						{headers: this.headers}
-					)
-					.map(() => project)
-					.catch(this.handleError);
-					// .toPromise()
-					// .then(() => project)
-					// .catch(this.handleError);
-	}
+    delete(id: number): Observable<number> {
+        const url = `${this.apiUrl}/${id}`;
+
+        return this.http.delete(url, { headers: this.headers })
+                .map(r => this.response.parse(r))
+                .catch(this.handleError);
+    }
+
+    create(name: string): Observable<ProjectComponent> {
+        return this.http.post(
+                    this.apiUrl,
+                    JSON.stringify({
+                        name: name,
+                        pages: 0
+                    }),
+                    { headers: this.headers }
+                )
+                .map(r => this.response.parse(r))
+                .catch(this.handleError);
+    }
+
+    update(project: ProjectComponent): Observable<ProjectComponent> {
+        const url = `${this.apiUrl}/${project.id}`;
+
+        return this.http.put(
+                    url,
+                    JSON.stringify(project),
+                    { headers: this.headers }
+                )
+                .map(r => this.response.parse(r))
+                .catch(this.handleError);
+    }
 }

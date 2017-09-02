@@ -90,7 +90,7 @@
 							   	   aria-hidden="true"></i>
 							</div>
 							<div class="controls__drag"
-								 (mousedown)="dragField($event, field)">
+								 (mousedown)="dragField($event, Field)">
 								<i class="fa fa-bars controls__drag_icon" 
 							   	   aria-hidden="true"></i>
 							</div>
@@ -100,7 +100,7 @@
 							   	   aria-hidden="true"></i>
 							</div>
 							<div class="controls__delete"
-								 (click)="deleteField(groupId, fieldId)">
+								 (click)="deleteField(groupId, fieldId, field.id)">
 								<i class="fa fa-trash-o controls__delete_icon" 
 							   	   aria-hidden="true"></i>
 							</div>
@@ -112,32 +112,32 @@
 					<div class="fieldset__create_list"
 						 [class.visible]="showCreateList">
 						<div class="item"
-							 (click)="addField(groupId, 'textarea')">
+							 (click)="addField(group, 'textarea', groupId)">
 							<i class="fa fa-font" aria-hidden="true"></i>
 							<span class="item__name">Описание</span>
 						</div>
 						<div class="item"
-							 (click)="addField(groupId, 'image')">
+							 (click)="addField(group, 'image', groupId)">
 							<i class="fa fa-picture-o" aria-hidden="true"></i>
 							<span class="item__name">Изображение</span>
 						</div>
 						<div class="item"
-							 (click)="addField(groupId, 'date')">
+							 (click)="addField(group, 'date', groupId)">
 							<i class="fa fa-calendar" aria-hidden="true"></i>
 							<span class="item__name">Дата</span>
 						</div>
 						<div class="item"
-							 (click)="addField(groupId, 'url')">
+							 (click)="addField(group, 'url', groupId)">
 							<i class="fa fa-link" aria-hidden="true"></i>
 							<span class="item__name">Ссылка</span>
 						</div>
 						<div class="item"
-							 (click)="addField(groupId, 'video')">
+							 (click)="addField(group, 'video', groupId)">
 							<i class="fa fa-video-camera" aria-hidden="true"></i>
 							<span class="item__name">Видео</span>
 						</div>
 						<div class="item"
-							 (click)="addField(groupId, 'audio')">
+							 (click)="addField(group, 'audio', groupId)">
 							<i class="fa fa-headphones" aria-hidden="true"></i>
 							<span class="item__name">Аудио</span>
 						</div>
@@ -150,7 +150,7 @@
 				<div class="fieldset__delete">
 					<i class="fa fa-trash-o fieldset__delete_icon" 
 				   	   aria-hidden="true"
-				   	   (click)="deleteGroup(groupId)"></i>
+				   	   (click)="deleteGroup(groupId, group.id)"></i>
 				</div>
 			</details>	
 		</ng-template>
@@ -162,7 +162,7 @@
 		   	   aria-hidden="true"></i>
 		</div>	
 		<div class="content__controls_create"
-			 (click)="addGroup()">
+			 (click)="addGroup(dataItem)">
 			<i class="fa fa-plus content__controls_create_icon" 
 		   	   aria-hidden="true"></i>
 		</div>
@@ -174,7 +174,7 @@
 		<div class="content__controls_parent_list"
 			 [class.visible]="showParentList">
 			<span>Выбор родителя</span>
-			<select [(ngModel)]="dataItem.parent"
+			<select [(ngModel)]="dataItem.Parent"
 					(change)="showParentList = !showParentList">
 				<option value="">Не выбран</option>
 				<ng-template ngFor 

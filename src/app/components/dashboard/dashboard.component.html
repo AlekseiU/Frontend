@@ -4,16 +4,16 @@
 		<div class="projects">
 			<div class="project"
 				 *ngFor="let project of projects"
-				 [routerLink]="['/workplace', project.id]"
+				 [routerLink]="['/workplace', project.ID]"
 				 routerLinkActive="selected">
 				<i class="fa fa-database project__icon" 
 				   aria-hidden="true"></i>
 				<div class="project__info">
-					<span class="project__name">{{project.name}}</span>
+					<span class="project__name">{{project.Name}}</span>
 					<span class="project__pages">
 						<i class="fa fa-files-o project__pages_icon" 
 						   aria-hidden="true"></i>
-						<span class="project__pages_count">{{project.pages || 0}}</span>
+						<span class="project__pages_count">{{project.Pages || 0}}</span>
 					</span>
 				</div>
 			</div>																

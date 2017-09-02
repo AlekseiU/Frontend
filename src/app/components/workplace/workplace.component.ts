@@ -21,60 +21,60 @@ import { DataService } from '../../services/data/data.service';
 import { DataComponent } from '../data/data.component';
 
 @Component({
-	selector: 'workplace',
-	templateUrl: './workplace.component.html',
-	styleUrls: ['./workplace.component.styl'],
-	providers: [
-		ProjectService,
-		ProjectComponent
-	]
+    selector: 'workplace',
+    templateUrl: './workplace.component.html',
+    styleUrls: ['./workplace.component.styl'],
+    providers: [
+        ProjectService,
+        ProjectComponent
+    ]
 })
 
 export class WorkplaceComponent implements OnInit {
-	/****************************/
-	/* Инициализация переменных */
-	/****************************/
-	loading: boolean;
-	project: ProjectComponent = null;
-	projects: ProjectComponent[];
-	projectsSubscription;
-	routeSubscription;
+    /****************************/
+    /* Инициализация переменных */
+    /****************************/
+    loading: boolean;
+    project: ProjectComponent = null;
+    projects: ProjectComponent[];
+    projectsSubscription;
+    routeSubscription;
 
-	constructor(
-		private router: Router,
-	    private route: ActivatedRoute,
-	    private location: Location,
-	    private projectService: ProjectService,
-	    private projectComponent: ProjectComponent
-	){}
+    constructor(
+        private router: Router,
+        private route: ActivatedRoute,
+        private location: Location,
+        private projectService: ProjectService,
+        private projectComponent: ProjectComponent
+    ){}
 
-	/*********************/
-	/* Методы компонента */
-	/*********************/
-	getProjects(): void {
-		this.projectsSubscription = this.projectService.getProjects().subscribe(projects => {
-			this.projects = projects;
-		});
-	}
+    /*********************/
+    /* Методы компонента */
+    /*********************/
+    getProjects(): void {
+        this.projectsSubscription = this.projectService.list().subscribe(projects => {
+            this.projects = projects;
+        });
+    }
 
-	selectProject(event) {
-		this.project = event.project;
-	}
+    selectProject(event) {
+        this.project = event.project;
+    }
 
-	/****************************/
-	/* Инициализация компонента */
-	/****************************/
-	ngOnInit(): void {
-		this.getProjects();
+    /****************************/
+    /* Инициализация компонента */
+    /****************************/
+    ngOnInit(): void {
+        this.getProjects();
 
-		this.routeSubscription = this.route.params
-		  	.switchMap((params: Params) => {
-		  		if (params['id']) {
-			  		return this.projectService.getProject(+params['id'])
-			  	} else {
-			  		return Observable.of<ProjectComponent>()
-			  	}
-		  	})
-	  		.subscribe(project => this.project = project);
-	}
+        this.routeSubscription = this.route.params
+              .switchMap((params: Params) => {
+                  if (params['id']) {
+                      return this.projectService.item(+params['id'])
+                  } else {
+                      return Observable.of<ProjectComponent>()
+                  }
+              })
+              .subscribe(project => this.project = project);
+    }
 }

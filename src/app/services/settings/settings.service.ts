@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
 
 let SETTINGS = {
-  	projects: {
-		visibility: true
-  	}
+      projects: {
+        visibility: true
+      }
 };
 
 @Injectable()
 export class SettingsService {
 
-  	constructor(){}
+      constructor(){}
 
-  	getSettings() {
-		return SETTINGS;
-  	}
+      getSettings() {
+        return SETTINGS;
+      }
 }
