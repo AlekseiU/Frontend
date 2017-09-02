@@ -205,14 +205,24 @@ export class DataDetailComponent implements OnInit {
     }
 
     createChild() {
-        this.dataService
-            .create('Без имени', this.dataItem.project)
+        const data: DataComponent = {
+            id: null,
+            name: 'Без имени',
+            project: this.dataItem.project,
+            parent: this.dataItem.id,
+            coordinates: {
+                x: this.dataItem.coordinates.x,
+                y: this.dataItem.coordinates.y + 130
+            },
+            content: null,
+            fullScreen: false
+        };
+
+        this.dataService.create(data)
             .subscribe((data: DataComponent) => {
-                data.coordinates.x = this.dataItem.coordinates.x;
-                data.coordinates.y = this.dataItem.coordinates.y + 130;
-                data.parent = this.dataItem.id;
                 this.childCreated.emit(data);
             });
+
         this.toogleFullscreen.emit(this.dataItem.fullScreen);
     }
 

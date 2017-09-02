@@ -126,14 +126,23 @@ export class ProjectDetailComponent implements OnInit {
         }
     }
 
-    createData(name: string): void {
-        name = name.trim();
-        if (!name) { return; }
-        this.dataService.create(name, this.project.id)
-            .subscribe(data => {
-                data.coordinates.x = (document.getElementsByClassName('dataList')[0].scrollWidth / 2) - 50;
-                data.coordinates.y = (document.getElementsByClassName('dataList')[0].scrollHeight / 2) - 50;
-                this.data.push(data);
+    createData(): void {
+        const data: DataComponent = {
+            id: null,
+            name: 'Без имени',
+            project: this.project.id,
+            parent: null,
+            coordinates: {
+                x: (document.getElementsByClassName('dataList')[0].scrollWidth / 2) - 50,
+                y: (document.getElementsByClassName('dataList')[0].scrollHeight / 2) - 50
+            },
+            content: null,
+            fullScreen: false
+        };
+
+        this.dataService.create(data)
+            .subscribe(response => {
+                this.data.push(response);
             });
     }
 

@@ -38,19 +38,10 @@ export class DataService {
                 .catch(this.handleError);
     }
 
-    create(name: string, projectId: number): Observable<DataComponent> {
+    create(data: DataComponent): Observable<DataComponent> {
         return this.http.post(
                     this.apiUrl,
-                    JSON.stringify({
-                        name: name,
-                        coordinates: {
-                            x: null,
-                            y: null
-                        },
-                        fullScreen: false,
-                        project: projectId,
-                        content: []
-                    }),
+                    JSON.stringify(data),
                     { headers: this.headers }
                 )
                 .map(r => this.response.parse(r))
