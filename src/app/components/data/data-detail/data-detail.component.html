@@ -63,7 +63,8 @@
 					 let-groupId="index">
 			<details class="fieldset"
 					 *ngIf="group"
-					 (mouseenter)="swapGroupOrder($event, group)">
+					 (mouseenter)="swapGroupOrder($event, group)"
+					 [attr.open]="group.collapsed ? group.collapsed : null">
 				<summary class="fieldset__name">
 					<i class="fa fa-bars fieldset__name_drag" 
 					   aria-hidden="true"
@@ -73,7 +74,8 @@
 						   placeholder="Введите название группы"
 						   [(ngModel)]="group.name" />
 					<i class="fa fa-angle-double-down fieldset__name_toggle" 
-					   aria-hidden="true"></i>
+					   aria-hidden="true"
+					   (click)="toggleCollapse($event, group)"></i>
 				</summary>
 				<ng-template ngFor 
 							 let-field 

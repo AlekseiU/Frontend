@@ -226,6 +226,11 @@ export class DataDetailComponent implements OnInit {
         this.toogleFullscreen.emit(this.dataItem.fullScreen);
     }
 
+    toggleCollapse(e, group) {
+        e.preventDefault();
+        group.collapsed = !group.collapsed;
+    }
+
     /****************************/
     /* Инициализация компонента */
     /****************************/

@@ -27,7 +27,6 @@ export class DashboardComponent implements OnInit {
     /*********************/
     getProjects(): void {
         this.projectsSubscription = this.projectService.list().subscribe(projects => {
-            console.log(projects);
             this.projects = projects;
         });
     }
