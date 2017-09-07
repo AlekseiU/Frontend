@@ -1,9 +1,10 @@
 import { Component, OnInit, Input, Output, HostBinding, HostListener, EventEmitter } from '@angular/core';
-
+// Services
 import { DataService } from '../../../services/data/data.service';
 import { GroupService } from '../../../services/data/group/group.service';
 import { FieldService } from '../../../services/data/field/field.service';
-import { DataComponent } from '../data.component';
+// Components
+import { DataComponent } from '../../../components/data/data.component';
 
 @Component({
       selector: 'data-detail',

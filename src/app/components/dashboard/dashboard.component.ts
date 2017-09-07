@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-
+// Services
 import { ProjectService } from '../../services/project/project.service';
-import { ProjectComponent } from '../project/project.component';
+// Components
+import { ProjectComponent } from '../../components/project/project.component';
 
 @Component({
     selector: 'dashboard',

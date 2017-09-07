@@ -1,17 +1,13 @@
 import { Component } from '@angular/core';
+// Interfaces
+import { IProject } from '../../interfaces/project/project';
 
 @Component({
-    selector: 'project',
-    templateUrl: './project.component.html',
-    styleUrls: ['./project.component.styl']
+    selector: 'project'
 })
-export class ProjectComponent {
-    /************************/
-    /* Интерфейс компонента */
-    /************************/
-    id: number;
-    name: string;
-    pages: number;
 
-    constructor(){}
+export class ProjectComponent implements IProject{
+    id;
+    name;
+    pages;
 }

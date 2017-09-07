@@ -1,18 +1,12 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Router, ActivatedRoute, ActivatedRouteSnapshot, RouterStateSnapshot, Params } from '@angular/router';
+import { Router } from '@angular/router';
 import { Location } from '@angular/common';
-
 import { Observable } from 'rxjs/Observable';
-
-// Observable class extensions
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/observable/of';
-
+// Services
 import { SettingsService } from '../../../services/settings/settings.service';
 import { ProjectService } from '../../../services/project/project.service';
-import { ProjectComponent } from '../../project/project.component';
-
+// Components
+import { ProjectComponent } from '../../../components/project/project.component';
 
 @Component({
     selector: 'project-list',
@@ -49,11 +43,9 @@ export class ProjectListComponent implements OnInit {
 
     constructor (
         private router: Router,
-        private route: ActivatedRoute,
-        private location: Location,
-        private projectService: ProjectService, 
+        private projectService: ProjectService,
         private settingsService: SettingsService
-    ){}
+    ) {}
 
     /*********************/
     /* Методы компонента */

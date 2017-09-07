@@ -3,14 +3,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-
 // Angular material
 import { MaterialModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 // Order plugin
 import { Ng2OrderModule } from 'ng2-order-pipe';
-
 // Application
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -21,11 +18,9 @@ import { FooterComponent } from './components/footer/footer.component';
 import { WorkplaceComponent } from './components/workplace/workplace.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 // Project
-import { ProjectComponent } from './components/project/project.component';
 import { ProjectListComponent } from './components/project/project-list/project-list.component';
 import { ProjectDetailComponent } from './components/project/project-detail/project-detail.component';
 // Data
-import { DataComponent } from './components/data/data.component';
 import { DataDetailComponent } from './components/data/data-detail/data-detail.component';
 import { DataFieldComponent } from './components/data/data-field/data-field.component';
 // Settings
@@ -46,13 +41,11 @@ import { ErrorService } from './services/providers/error/error.service';
 @NgModule({
     declarations: [
         AppComponent,
-        DataComponent,
         HeaderComponent,
         FooterComponent,
         ProjectListComponent,
         LoaderComponent,
         WorkplaceComponent,
-        ProjectComponent,
         DashboardComponent,
         ProjectDetailComponent,
         DataDetailComponent,

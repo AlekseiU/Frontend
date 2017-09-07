@@ -1,10 +1,10 @@
 import { Component, OnInit, Input, HostBinding, HostListener, ElementRef, ViewChild } from '@angular/core';
-
+// Services
 import { ProjectService } from '../../../services/project/project.service';
-import { ProjectComponent } from '../../project/project.component';
-
 import { DataService } from '../../../services/data/data.service';
-import { DataComponent } from '../../data/data.component';
+// Components
+import { ProjectComponent } from '../../../components/project/project.component';
+import { DataComponent } from '../../../components/data/data.component';
 
 @Component({
     selector: 'project-detail',
@@ -203,7 +203,3 @@ export class ProjectDetailComponent implements OnInit {
         }, 5000);
     }
 }
-
-/********* ToDo: **********/
-/* Автосохранение проекта */
-/**************************/
