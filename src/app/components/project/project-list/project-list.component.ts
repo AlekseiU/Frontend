@@ -43,7 +43,6 @@ export class ProjectListComponent implements OnInit {
     /* Инициализация переменных */
     /****************************/
     loading: boolean = false;
-    settings: object;
     visibility: boolean;
     selectedProject = {};
     defaultSubscription;
@@ -60,8 +59,7 @@ export class ProjectListComponent implements OnInit {
     /* Методы компонента */
     /*********************/
     getSetting(): void {
-          this.settings = this.settingsService.getSettings();
-          this.visibility = this.settings['projects'].visibility;
+          this.visibility = true;
     }
 
     create(name: string): void {

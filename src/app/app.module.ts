@@ -39,51 +39,53 @@ import { LoaderComponent } from './ui/loader/loader.component';
 import { RangeComponent } from './ui/range/range.component';
 import { TooltipComponent } from './ui/tooltip/tooltip.component';
 import { TooltipDirective } from './ui/tooltip/tooltip.directive';
-// Helpers
-import { ResponseService } from './services/response/response.service';
+// Providers
+import { ResponseService } from './providers/response/response.service';
+import { ErrorService } from './providers/error/error.service';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    DataComponent,
-    HeaderComponent,
-    FooterComponent,
-    ProjectListComponent,
-    LoaderComponent,
-    WorkplaceComponent,
-    ProjectComponent,
-    DashboardComponent,
-    ProjectDetailComponent,
-    DataDetailComponent,
-    DataFieldComponent,
-    RangeComponent,
-    TooltipComponent,
-    TooltipDirective,
-    SettingsComponent,
-    ProfileComponent,
-    HelpComponent
-  ],
-  entryComponents: [
-    TooltipComponent,
-    SettingsComponent,
-    ProfileComponent,
-    HelpComponent
-  ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    HttpModule,
-    AppRoutingModule,
-    Ng2OrderModule,
-    MaterialModule,
-    BrowserAnimationsModule
-  ],
-  exports: [
-    SettingsComponent
-  ],
-  providers: [
-    ResponseService
-  ],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        DataComponent,
+        HeaderComponent,
+        FooterComponent,
+        ProjectListComponent,
+        LoaderComponent,
+        WorkplaceComponent,
+        ProjectComponent,
+        DashboardComponent,
+        ProjectDetailComponent,
+        DataDetailComponent,
+        DataFieldComponent,
+        RangeComponent,
+        TooltipComponent,
+        TooltipDirective,
+        SettingsComponent,
+        ProfileComponent,
+        HelpComponent
+    ],
+    entryComponents: [
+        TooltipComponent,
+        SettingsComponent,
+        ProfileComponent,
+        HelpComponent
+    ],
+    imports: [
+        BrowserModule,
+        FormsModule,
+        HttpModule,
+        AppRoutingModule,
+        Ng2OrderModule,
+        MaterialModule,
+        BrowserAnimationsModule
+    ],
+    exports: [
+        SettingsComponent
+    ],
+    providers: [
+        ResponseService,
+        ErrorService
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule {}

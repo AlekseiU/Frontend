@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
+// Providers
+import { ErrorService } from '../../providers/error/error.service';
+// Libraries
 import { Observable } from 'rxjs/Observable';
 
-/*********************/
-/* Интерфейс сервиса */
-/*********************/
+/**
+ * Интерфейс сервиса
+ */
 interface IResponse {
     result: boolean;
     message: string;
@@ -16,8 +19,14 @@ export class ResponseService {
     status: number;
     body: IResponse;
 
-    constructor() { }
+    constructor(
+        private error: ErrorService
+    ) {}
 
+    /**
+    * Проверяет ответ сервера
+    * @param {Object} response Ответ сервера
+    */
     check(response): boolean {
         this.headers = response.headers;
         this.status = response.status;
@@ -30,15 +39,21 @@ export class ResponseService {
         if (this.body.result) {
             return this.body.result;
         } else {
-            throw new Error(this.body.message);
+            this.error.handle(this.body.message, null);
+            return;
         }
     }
 
+    /**
+    * Парсит ответ сервера
+    * @param {Object} response Ответ сервера
+    */
     parse(response): object {
         if (this.check(response)) {
             return this.body.data;
         } else {
-            throw new Error(this.body.message);
+            this.error.handle(this.body.message, null);
+            return;
         }
     }
 }
