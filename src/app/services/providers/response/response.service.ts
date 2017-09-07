@@ -3,19 +3,12 @@ import { Injectable } from '@angular/core';
 import { ErrorService } from '../../providers/error/error.service';
 // Libraries
 import { Observable } from 'rxjs/Observable';
-
-/**
- * Интерфейс сервиса
- */
-interface IResponse {
-    result: boolean;
-    message: string;
-    data: object;
-}
+// Interfaces
+import { IResponse } from '../../../interfaces/response/response';
 
 @Injectable()
 export class ResponseService {
-    headers;
+    headers: Headers;
     status: number;
     body: IResponse;
 
@@ -39,7 +32,7 @@ export class ResponseService {
         if (this.body.result) {
             return this.body.result;
         } else {
-            this.error.handle(this.body.message, null);
+            this.error.handle(this.body.message);
             return;
         }
     }
@@ -52,7 +45,7 @@ export class ResponseService {
         if (this.check(response)) {
             return this.body.data;
         } else {
-            this.error.handle(this.body.message, null);
+            this.error.handle(this.body.message);
             return;
         }
     }

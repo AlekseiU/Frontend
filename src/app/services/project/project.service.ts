@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Headers, Http } from '@angular/http';
 // Providers
-import { ResponseService } from '../../providers/response/response.service';
-import { ErrorService } from '../../providers/error/error.service';
+import { ResponseService } from '../providers/response/response.service';
+import { ErrorService } from '../providers/error/error.service';
 // Libraries
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
-// Component
-import { ProjectComponent } from '../../components/project/project.component';
+// Interfaces
+import { IProject } from '../../interfaces/project/project';
 
 @Injectable()
 export class ProjectService {
@@ -23,7 +23,7 @@ export class ProjectService {
     /**
      * Выводит список проектов
      */
-    list(): Observable<ProjectComponent[]> {
+    list(): Observable<IProject[]> {
         return this.http.get(this.apiUrl)
                 .map(r => this.response.parse(r))
                 .catch(this.error.handle);
@@ -33,7 +33,7 @@ export class ProjectService {
      * Отображает данные проекта
      * @param {Number} id идентификатор проекта
      */
-    item(id: number): Observable<ProjectComponent> {
+    item(id: number): Observable<IProject> {
         const url = `${this.apiUrl}/${id}`;
 
         return this.http.get(url)
@@ -57,7 +57,7 @@ export class ProjectService {
      * Создает проект
      * @param {String} name имя проекта
      */
-    create(name: string): Observable<ProjectComponent> {
+    create(name: string): Observable<IProject> {
         return this.http.post(
                     this.apiUrl,
                     JSON.stringify({
@@ -72,9 +72,9 @@ export class ProjectService {
 
     /**
      * Обновляет проект
-     * @param {ProjectComponent} project модель проекта
+     * @param {IProject} project модель проекта
      */
-    update(project: ProjectComponent): Observable<ProjectComponent> {
+    update(project: IProject): Observable<IProject> {
         const url = `${this.apiUrl}/${project.id}`;
 
         return this.http.put(

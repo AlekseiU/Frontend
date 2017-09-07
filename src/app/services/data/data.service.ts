@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Headers, Http } from '@angular/http';
 // Providers
-import { ResponseService } from '../../providers/response/response.service';
-import { ErrorService } from '../../providers/error/error.service';
+import { ResponseService } from '../providers/response/response.service';
+import { ErrorService } from '../providers/error/error.service';
 // Libaries
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
-// Component
-import { DataComponent } from '../../components/data/data.component';
+// Interfaces
+import { IData } from '../../interfaces/data/data';
 
 @Injectable()
 export class DataService {
@@ -46,9 +46,9 @@ export class DataService {
 
     /**
      * Создает Data объект
-     * @param {DataComponent} data модель Data объекта
+     * @param {IData} data модель Data объекта
      */
-    create(data: DataComponent): Observable<DataComponent> {
+    create(data: IData): Observable<IData> {
         return this.http.post(
                     this.apiUrl,
                     JSON.stringify(data),
@@ -60,9 +60,9 @@ export class DataService {
 
     /**
      * Обновляет Data объект
-     * @param {DataComponent} data модель Data объекта
+     * @param {IData} data модель Data объекта
      */
-    update(data: DataComponent): Observable<DataComponent> {
+    update(data: IData): Observable<IData> {
         const url = `${this.apiUrl}/${data.id}`;
 
         return this.http.put(

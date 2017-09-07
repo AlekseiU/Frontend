@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Headers, Http } from '@angular/http';
 // Providers
-import { ResponseService } from '../../../providers/response/response.service';
-import { ErrorService } from '../../../providers/error/error.service';
+import { ResponseService } from '../../providers/response/response.service';
+import { ErrorService } from '../../providers/error/error.service';
 // Libraries
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
-// Component
-import { DataComponent } from '../../../components/data/data.component';
+// Interfaces
+import { IGroup } from '../../../interfaces/data/group/group';
 
 @Injectable()
 export class GroupService {
@@ -24,7 +24,7 @@ export class GroupService {
      * Удаляет группу полей из объекта
      * @param {Number} id идентификатор группы
      */
-    delete(id: number): Observable<number> {
+    delete(id: number): Observable<IGroup> {
         const url = `${this.apiUrl}/${id}`;
 
         return this.http.delete(url, { headers: this.headers })
@@ -34,9 +34,9 @@ export class GroupService {
 
     /**
      * Создает группу полей в объекте
-     * @param {DataComponent} group модель группы
+     * @param {iGroup} group модель группы
      */
-    create(group): Observable<DataComponent> {
+    create(group: IGroup): Observable<IGroup> {
         return this.http.post(
                     this.apiUrl,
                     JSON.stringify(group),

@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Headers, Http } from '@angular/http';
 // Providers
-import { ResponseService } from '../../../providers/response/response.service';
-import { ErrorService } from '../../../providers/error/error.service';
+import { ResponseService } from '../../providers/response/response.service';
+import { ErrorService } from '../../providers/error/error.service';
 // Libraries
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
-// Component
-import { DataComponent } from '../../../components/data/data.component';
+// Interfaces
+import { IField } from '../../../interfaces/data/field/field';
 
 @Injectable()
 export class FieldService {
@@ -24,7 +24,7 @@ export class FieldService {
      * Удаляет поле из объекта
      * @param {Number} id идентификатор поля
      */
-    delete(id: number): Observable<number> {
+    delete(id: number): Observable<IField> {
         const url = `${this.apiUrl}/${id}`;
 
         return this.http.delete(url, { headers: this.headers })
@@ -34,9 +34,9 @@ export class FieldService {
 
     /**
      * Создает поле в объекте
-     * @param {DataComponent} field модель поля
+     * @param {iField} field модель поля
      */
-    create(field): Observable<DataComponent> {
+    create(field: IField): Observable<IField> {
         return this.http.post(
                     this.apiUrl,
                     JSON.stringify(field),

@@ -10,9 +10,8 @@ export class ErrorService {
     /**
     * Обрабатывает ошибки
     * @param {Any} error Ошибка
-    * @param {Object} caught Обработчик вызова
     */
-    handle(error: any, caught: Observable<Object>) {
+    handle(error: any) {
         console.error('An error occurred', error); // Режим отладки
         return Observable.throw(error.message || error);
     }

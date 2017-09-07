@@ -102,6 +102,7 @@ export class DataDetailComponent implements OnInit {
 
     addField(group, type: string, index: number) {
         const field = {
+            id: null,
             type: type,
             value: '',
             order: 0,
@@ -117,9 +118,12 @@ export class DataDetailComponent implements OnInit {
 
     addGroup(data: DataComponent) {
         const group = {
+            id: null,
             name: '',
             order: 0,
-            data: data.id
+            data: data.id,
+            collapsed: false,
+            fields: []
         };
 
         this.groupService.create(group)

@@ -40,8 +40,8 @@ import { RangeComponent } from './ui/range/range.component';
 import { TooltipComponent } from './ui/tooltip/tooltip.component';
 import { TooltipDirective } from './ui/tooltip/tooltip.directive';
 // Providers
-import { ResponseService } from './providers/response/response.service';
-import { ErrorService } from './providers/error/error.service';
+import { ResponseService } from './services/providers/response/response.service';
+import { ErrorService } from './services/providers/error/error.service';
 
 @NgModule({
     declarations: [
