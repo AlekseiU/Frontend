@@ -6,7 +6,7 @@
 				<div class="project"
 					 *ngFor="let project of projects; let i=index"
 					 (click)="select(project)"
-					 [class.selected]="project.id === selectedProject.id">
+					 [class.selected]="current && project.id === current.id">
 					<div class="project__delete"
 						 (click)="delete(i, project)">
 						<i class="fa fa-trash-o project__delete_icon" 

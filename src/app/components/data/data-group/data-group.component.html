@@ -1,0 +1,75 @@
+<details class="fieldset"
+         *ngIf="group"
+         [attr.open]="group.collapsed ? group.collapsed : null">
+    <summary class="fieldset__name">
+        <div class="fieldset__order">
+            <i class="fa fa-angle-up fieldset__order_up" 
+               aria-hidden="true"
+               (click)="orderUp($event, group)"></i>
+            <i class="fa fa-angle-down fieldset__order_down" 
+               aria-hidden="true"
+               (click)="orderDown($event, group)"></i>
+        </div>
+        <input class="fieldset__name_input"
+               type="text"
+               placeholder="Введите название группы"
+               [(ngModel)]="group.name" />
+        <i class="fa fa-angle-double-down fieldset__name_toggle" 
+           aria-hidden="true"
+           (click)="collapse($event, group)"></i>
+    </summary>
+    <ng-template 
+        ngFor 
+        let-field 
+        [ngForOf]="group.fields | orderBy: 'order'">
+        <data-field [field]="field"
+                    [group]="group"
+                    [data]="data"
+                    class="{{field.type}}">
+        </data-field>
+    </ng-template>
+    <div class="fieldset__create">
+        <div class="fieldset__create_list"
+            [class.visible]="showCreateList">
+            <div class="item"
+                (click)="addField(group, 'textarea')">
+                <i class="fa fa-font" aria-hidden="true"></i>
+                <span class="item__name">Описание</span>
+            </div>
+            <div class="item"
+                (click)="addField(group, 'image')">
+                <i class="fa fa-picture-o" aria-hidden="true"></i>
+                <span class="item__name">Изображение</span>
+            </div>
+            <div class="item"
+                (click)="addField(group, 'date')">
+                <i class="fa fa-calendar" aria-hidden="true"></i>
+                <span class="item__name">Дата</span>
+            </div>
+            <div class="item"
+                (click)="addField(group, 'url')">
+                <i class="fa fa-link" aria-hidden="true"></i>
+                <span class="item__name">Ссылка</span>
+            </div>
+            <div class="item"
+                (click)="addField(group, 'video')">
+                <i class="fa fa-video-camera" aria-hidden="true"></i>
+                <span class="item__name">Видео</span>
+            </div>
+            <div class="item"
+                (click)="addField(group, 'audio')">
+                <i class="fa fa-headphones" aria-hidden="true"></i>
+                <span class="item__name">Аудио</span>
+            </div>
+        </div>
+        <i class="fa fa-plus fieldset__create_icon" 
+        aria-hidden="true"
+        (click)="showCreateList = !showCreateList"
+        [class.opened]="showCreateList"></i>
+    </div>
+    <div class="fieldset__delete">
+        <i class="fa fa-trash-o fieldset__delete_icon" 
+           aria-hidden="true"
+           (click)="delete(group)"></i>
+    </div>
+</details>	

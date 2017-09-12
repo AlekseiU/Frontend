@@ -37,24 +37,25 @@ export class WorkplaceComponent implements OnInit {
         });
     }
 
+    /**
+     * Устанавливает активный проект
+     * @param event смена проекта
+     */
     selectProject(event) {
         this.project = event.project;
     }
 
-    /****************************/
-    /* Инициализация компонента */
-    /****************************/
     ngOnInit(): void {
         this.getProjects();
 
         this.routeSubscription = this.route.params
-              .switchMap((params: Params) => {
-                  if (params['id']) {
-                      return this.projectService.item(+params['id'])
-                  } else {
-                      return Observable.of<ProjectComponent>();
-                  }
-              })
-              .subscribe(project => this.project = project);
+            .switchMap((params: Params) => {
+                if (params['id']) {
+                    return this.projectService.item(+params['id'])
+                } else {
+                    return Observable.of<ProjectComponent>();
+                }
+            })
+            .subscribe(project => this.project = project);
     }
 }

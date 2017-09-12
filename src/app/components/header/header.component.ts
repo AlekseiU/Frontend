@@ -14,39 +14,39 @@ import {SettingsComponent} from '../settings/settings.component';
     ]
 })
 export class HeaderComponent implements OnInit {
-    /****************************/
-    /* Инициализация переменных */
-    /****************************/
     visibility = true;
 
     constructor(
         public dialog: MdDialog
     ) {}
 
-    /*********************/
-    /* Методы компонента */
-    /*********************/
+    /**
+     * Прячет шапку
+     */
     hide() {
         this.visibility = !this.visibility;
     }
 
+    /**
+     * Открывает модалку Help
+     */
     openHelp() {
         const dialogRef = this.dialog.open(HelpComponent);
-        // dialogRef.afterClosed().subscribe(result => {
-        //   	console.log('1');
-        // });
     }
 
+    /**
+     * Открывает модалку Profile
+     */
     openProfile() {
-        let dialogRef = this.dialog.open(ProfileComponent);
+        const dialogRef = this.dialog.open(ProfileComponent);
     }
 
+    /**
+     * Открывает модалку Settings
+     */
     openSettings() {
-        let dialogRef = this.dialog.open(SettingsComponent);
+        const dialogRef = this.dialog.open(SettingsComponent);
     }
 
-    /****************************/
-    /* Инициализация компонента */
-    /****************************/
     ngOnInit() {}
 }

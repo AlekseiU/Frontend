@@ -1,11 +1,11 @@
 <div class="data__controls">
 	<div class="breakConnection icon"
-		 (click)="deleteParent($event)">
+		 (click)="deleteParent()">
 		<i class="fa fa-chain-broken breakConnection_icon" 
 		   aria-hidden="true"></i>	 				
 	</div>
 	<div class="deleteData icon"
-		 (click)="deleteData(dataItem)">
+		 (click)="delete(dataItem)">
 		<i class="fa fa-trash-o deleteData_icon" 
 		   aria-hidden="true"></i>	
 	</div>
@@ -59,107 +59,15 @@
 		 *ngIf="dataItem.content.length">
 		<ng-template ngFor 
 					 let-group 
-					 [ngForOf]="dataItem.content | orderBy: 'order'" 
-					 let-groupId="index">
-			<details class="fieldset"
-					 *ngIf="group"
-					 (mouseenter)="swapGroupOrder($event, group)"
-					 [attr.open]="group.collapsed ? group.collapsed : null">
-				<summary class="fieldset__name">
-					<i class="fa fa-bars fieldset__name_drag" 
-					   aria-hidden="true"
-					   (mousedown)="dragGroup($event, group)"></i>
-					<input class="fieldset__name_input"
-						   type="text"
-						   placeholder="Введите название группы"
-						   [(ngModel)]="group.name" />
-					<i class="fa fa-angle-double-down fieldset__name_toggle" 
-					   aria-hidden="true"
-					   (click)="toggleCollapse($event, group)"></i>
-				</summary>
-				<ng-template ngFor 
-							 let-field 
-							 [ngForOf]="group.fields | orderBy: 'order'" 
-							 let-fieldId="index">
-					<div *ngIf="field"
-						 class="{{field.type}}"
-						 (mouseenter)="swapFieldOrder($event, field)">
-						<!-- Элементы управления для всех типов полей -->
-						<div class="controls">
-							<div class="controls__up"
-								 (click)="fieldOrderUp(groupId, fieldId)">
-								<i class="fa fa-angle-up controls__up_icon" 
-							   	   aria-hidden="true"></i>
-							</div>
-							<div class="controls__drag"
-								 (mousedown)="dragField($event, Field)">
-								<i class="fa fa-bars controls__drag_icon" 
-							   	   aria-hidden="true"></i>
-							</div>
-							<div class="controls__down"
-								 (click)="fieldOrderDown(groupId, fieldId)">
-								<i class="fa fa-angle-down controls__down_icon" 
-							   	   aria-hidden="true"></i>
-							</div>
-							<div class="controls__delete"
-								 (click)="deleteField(groupId, fieldId, field.id)">
-								<i class="fa fa-trash-o controls__delete_icon" 
-							   	   aria-hidden="true"></i>
-							</div>
-						</div>
-						<data-field [field]="field"></data-field>
-					</div>
-				</ng-template>
-				<div class="fieldset__create">
-					<div class="fieldset__create_list"
-						 [class.visible]="showCreateList">
-						<div class="item"
-							 (click)="addField(group, 'textarea', groupId)">
-							<i class="fa fa-font" aria-hidden="true"></i>
-							<span class="item__name">Описание</span>
-						</div>
-						<div class="item"
-							 (click)="addField(group, 'image', groupId)">
-							<i class="fa fa-picture-o" aria-hidden="true"></i>
-							<span class="item__name">Изображение</span>
-						</div>
-						<div class="item"
-							 (click)="addField(group, 'date', groupId)">
-							<i class="fa fa-calendar" aria-hidden="true"></i>
-							<span class="item__name">Дата</span>
-						</div>
-						<div class="item"
-							 (click)="addField(group, 'url', groupId)">
-							<i class="fa fa-link" aria-hidden="true"></i>
-							<span class="item__name">Ссылка</span>
-						</div>
-						<div class="item"
-							 (click)="addField(group, 'video', groupId)">
-							<i class="fa fa-video-camera" aria-hidden="true"></i>
-							<span class="item__name">Видео</span>
-						</div>
-						<div class="item"
-							 (click)="addField(group, 'audio', groupId)">
-							<i class="fa fa-headphones" aria-hidden="true"></i>
-							<span class="item__name">Аудио</span>
-						</div>
-					</div>
-					<i class="fa fa-plus fieldset__create_icon" 
-				   	   aria-hidden="true"
-				   	   (click)="showCreateList = !showCreateList"
-				   	   [class.opened]="showCreateList"></i>
-				</div>
-				<div class="fieldset__delete">
-					<i class="fa fa-trash-o fieldset__delete_icon" 
-				   	   aria-hidden="true"
-				   	   (click)="deleteGroup(groupId, group.id)"></i>
-				</div>
-			</details>	
+					 [ngForOf]="dataItem.content | orderBy: 'order'">
+			<data-group [group]="group" 
+						[data]="dataItem">
+			</data-group>
 		</ng-template>
 	</div>
 	<div class="content__controls">
 		<div class="content__controls_delete"
-			 (click)="deleteData(dataItem)">
+			 (click)="delete(dataItem)">
 			<i class="fa fa-trash-o content__controls_delete_icon" 
 		   	   aria-hidden="true"></i>
 		</div>	

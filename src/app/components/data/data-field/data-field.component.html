@@ -1,3 +1,21 @@
+<!-- Элементы управления для всех типов полей -->
+<div class="controls">
+	<div class="controls__up"
+		 (click)="orderUp(field)">
+		<i class="fa fa-angle-up controls__up_icon" 
+		   aria-hidden="true"></i>
+	</div>
+	<div class="controls__down"
+		 (click)="orderDown(field)">
+		<i class="fa fa-angle-down controls__down_icon" 
+		   aria-hidden="true"></i>
+	</div>
+	<div class="controls__delete"
+		 (click)="delete(field)">
+		<i class="fa fa-trash-o controls__delete_icon" 
+		   aria-hidden="true"></i>
+	</div>
+</div>
 <!-- Разметка для поля описания -->
 <ng-template [ngIf]="field.type === 'textarea'">
 	<textarea placeholder="Какой-то текст..."
@@ -35,8 +53,8 @@
 <ng-template [ngIf]="field.type === 'date'">
 	<input type="date" 
 		   [(ngModel)]="field.value" />
-	<div class="date__create">
-		<i class="fa fa-plus date__create_icon" 
+	<div class="create">
+		<i class="fa fa-plus create_icon" 
 	   	   aria-hidden="true"></i>
 	</div>
 </ng-template>

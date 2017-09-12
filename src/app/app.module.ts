@@ -23,6 +23,7 @@ import { ProjectDetailComponent } from './components/project/project-detail/proj
 // Data
 import { DataDetailComponent } from './components/data/data-detail/data-detail.component';
 import { DataFieldComponent } from './components/data/data-field/data-field.component';
+import { DataGroupComponent } from './components/data/data-group/data-group.component';
 // Settings
 import { SettingsComponent } from './components/settings/settings.component';
 // Profile
@@ -34,6 +35,7 @@ import { LoaderComponent } from './ui/loader/loader.component';
 import { RangeComponent } from './ui/range/range.component';
 import { TooltipComponent } from './ui/tooltip/tooltip.component';
 import { TooltipDirective } from './ui/tooltip/tooltip.directive';
+import { LogoComponent } from './ui/logo/logo.component';
 // Providers
 import { ResponseService } from './services/providers/response/response.service';
 import { ErrorService } from './services/providers/error/error.service';
@@ -55,7 +57,9 @@ import { ErrorService } from './services/providers/error/error.service';
         TooltipDirective,
         SettingsComponent,
         ProfileComponent,
-        HelpComponent
+        HelpComponent,
+        LogoComponent,
+        DataGroupComponent
     ],
     entryComponents: [
         TooltipComponent,

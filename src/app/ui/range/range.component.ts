@@ -1,27 +1,24 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
-  	selector: 'range',
-  	templateUrl: './range.component.html',
-  	styleUrls: ['./range.component.styl']
+      selector: 'range',
+      templateUrl: './range.component.html',
+      styleUrls: ['./range.component.styl']
 })
 export class RangeComponent {
-	/********************/
-	/* Входные значения */
-	/********************/
-	@Input() value;
-	@Input() min;
-	@Input() max;
-	@Input() step;
+    @Input() value;
+    @Input() min;
+    @Input() max;
+    @Input() step;
 
-	/*********************/
-	/* Выходные значения */
-	/*********************/
-	@Output() scale = new EventEmitter();
+    @Output() scale = new EventEmitter();
 
-  	constructor() {}
+    constructor() {}
 
-  	change() {
-  		this.scale.emit(this.value);
-  	}
+    /**
+     * Изменяет значение бегунка
+     */
+    change() {
+        this.scale.emit(this.value);
+    }
 }

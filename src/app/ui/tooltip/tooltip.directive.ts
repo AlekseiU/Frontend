@@ -3,18 +3,21 @@ import { Directive, Input, ComponentRef, ViewContainerRef, ComponentFactoryResol
 import {TooltipComponent} from './tooltip.component';
 
 @Directive({
-  	selector: '[tooltip]'
+      selector: '[tooltip]'
 })
 export class TooltipDirective {
-	private tooltipComponent: ComponentRef<TooltipComponent>;
-	private visible: boolean;
+    private tooltipComponent: ComponentRef<TooltipComponent>;
+    private visible: boolean;
 
     @Input()
     tooltip: string;
 
-  	constructor(private viewContainerRef: ViewContainerRef, 
-  				private resolver: ComponentFactoryResolver) {}
+    constructor(private viewContainerRef: ViewContainerRef,
+                private resolver: ComponentFactoryResolver) {}
 
+    /**
+     * Показывает тултип
+     */
     @HostListener('focusin')
     @HostListener('mouseenter')
     show(): void {
@@ -27,6 +30,9 @@ export class TooltipDirective {
         }
     }
 
+    /**
+     * Прячет тултип
+     */
     @HostListener('focusout')
     @HostListener('mouseleave')
     hide(): void {
@@ -37,5 +43,4 @@ export class TooltipDirective {
             this.visible = false;
         }
     }
-
 }

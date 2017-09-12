@@ -1,0 +1,213 @@
+:host
+    & .fieldset__create
+        background-color: #1f408a;
+        width: 100%;
+        text-align: center;
+        padding: 6px 0;
+        position: relative;
+        margin: 50px 0 0;
+        &_icon
+            cursor: pointer;
+            background-color: #1f408a;
+            box-shadow: 0px 0px 15px #000;
+            border: 1px solid #fff;
+            color: #fff;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            line-height: 30px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            &:hover
+                background-color: #3458a7;
+            &:active
+                background-color: #15306b;
+            &.opened
+                transform: rotate(45deg);
+        &_list
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            position: absolute;
+            left: 50%;
+            bottom: 55px;
+            z-index: 1;
+            background-color: #1f408a;
+            box-shadow: 0px 0px 15px #000;
+            border: 1px solid #fff;
+            color: #fff;
+            border-radius: 4px;
+            padding: 0;
+            font-size: 12px;
+            font-weight: 100;
+            width: 260px;
+            margin-left: -130px;
+            transform: scale(0);
+            transition: transform 0.3s ease;
+            &.visible
+                transform: scale(1);
+            &:after
+            &:before
+                top: 100%;
+                left: 50%;
+                border: solid transparent;
+                content: '';
+                height: 0;
+                width: 0;
+                position: absolute;
+                pointer-events: none;
+            &:after
+                border-color: rgba(136,183,213,0);
+                border-top-color: #1f408a;
+                border-width: 10px;
+                margin-left: -10px;
+            &:before
+                border-color: rgba(194,225,245,0);
+                border-top-color: #fff;
+                border-width: 11px;
+                margin-left: -11px;
+            & .item 
+                display: block;
+                width: calc(30% - 10px);
+                padding: 10px 5px;
+                border-radius: 4px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+                &__name
+                    display: block;
+                    cursor: pointer;
+                    padding: 4px 0px;
+                    transition: background-color 0.3s ease;
+                & i 
+                    font-size: 25px;
+                    margin: 0 0 5px;
+                & span 
+                    font-size: 10px;
+                &:hover
+                    background-color: #3458a7;
+                &:active
+                    background-color: #15306b;
+    & .fieldset__delete
+        text-align: center;
+        padding: 6px;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        &_icon
+            cursor: pointer;
+            background-color: #BD001C;
+            box-shadow: 0px 0px 15px #000;
+            border: 1px solid #fff;
+            color: #fff;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            line-height: 30px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            &:hover
+                background-color: #d71733;
+            &:active
+                background-color: #b20821;
+    & .data
+        display: block;
+    & .fieldset
+        margin: 20px 20px 30px;
+        border: 1px solid #fff;
+        border-radius: 4px;
+        box-shadow: 0px 0px 15px #000;
+        outline: none;
+        position: relative;
+        overflow: hidden;
+        &:after
+            content: '';
+            border-bottom: 1px dashed #1f408a;
+            width: 100%;
+            height: 1px;
+            display: block;
+            position: absolute;
+            left: 0px;
+            margin-top: 15px;
+        &:last-child:after
+            display: none;
+        &__order
+            position: absolute;
+            left: 7px;
+            top: 7px;
+            font-size: 16px;
+            background-color: #1f408a;
+            box-shadow: 0px 0px 15px #000;
+            border: 1px solid #fff;
+            color: #fff;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            line-height: 30px;
+            cursor: pointer;
+            overflow: hidden;
+            &_up
+                display: block;
+                transition: all 0.3s ease;
+                position: relative;
+                top: 0px;
+                &:hover
+                    background-color: #3458a7;
+                &:active
+                    background-color: #15306b;         
+            &_down
+                display: block;
+                transition: all 0.3s ease;
+                position: relative;
+                top: -3px;
+                &:hover
+                    background-color: #3458a7;
+                &:active
+                    background-color: #15306b;
+        &__name
+            background-color: #1f408a;
+            position: relative;
+            outline: none;
+            &_input
+                margin: 0;
+                padding: 0;
+                border: 0;
+                font-family: Roboto;
+                font-size: 16px;
+                font-weight: 100;
+                background: transparent;
+                color: #fff;
+                width: 100%;
+                text-align: center;
+                padding: 15px 0;
+                &::-webkit-input-placeholder
+                    color: #fff;
+            &::-webkit-details-marker
+                display: none;
+            &_toggle
+                position: absolute;
+                right: 7px;
+                top: 7px;
+                font-size: 22px;
+                background-color: #1f408a;
+                box-shadow: 0px 0px 15px #000;
+                border: 1px solid #fff;
+                color: #fff;
+                border-radius: 50%;
+                width: 30px;
+                height: 30px;
+                text-align: center;
+                line-height: 32px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                &:hover
+                    background-color: #3458a7;
+                &:active
+                    background-color: #15306b;
+        &[open]
+            border: 1px solid #1f408a;
+            overflow: visible;
+            & .fieldset__name_toggle
+                transform: scale(1, -1);

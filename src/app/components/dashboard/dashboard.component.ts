@@ -13,25 +13,26 @@ import { ProjectComponent } from '../../components/project/project.component';
     ]
 })
 export class DashboardComponent implements OnInit {
-    /****************************/
-    /* Инициализация переменных */
-    /****************************/
     projects: ProjectComponent[];
     projectsSubscription;
 
     constructor(
-        private projectService: ProjectService, 
-    ){}
+        private projectService: ProjectService,
+    ) {}
 
-    /*********************/
-    /* Методы компонента */
-    /*********************/
+    /**
+     * Получает список проектов
+     */
     getProjects(): void {
         this.projectsSubscription = this.projectService.list().subscribe(projects => {
             this.projects = projects;
         });
     }
 
+    /**
+     * Создает проект
+     * @param name имя проекта
+     */
     create(name: string): void {
         name = name.trim();
         if (!name) { return; }
@@ -41,9 +42,6 @@ export class DashboardComponent implements OnInit {
               });
     }
 
-    /****************************/
-    /* Инициализация компонента */
-    /****************************/
     ngOnInit() {
         this.getProjects();
     }

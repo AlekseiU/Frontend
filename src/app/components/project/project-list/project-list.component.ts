@@ -19,26 +19,17 @@ import { ProjectComponent } from '../../../components/project/project.component'
 })
 
 export class ProjectListComponent implements OnInit {
-    /********************/
-    /* Входные значения */
-    /********************/
     @Input()
     projects: ProjectComponent[];
     @Input()
     default: ProjectComponent;
 
-    /*********************/
-    /* Выходные значения */
-    /*********************/
-    @Output() 
+    @Output()
     selected = new EventEmitter<any>();
 
-    /****************************/
-    /* Инициализация переменных */
-    /****************************/
-    loading: boolean = false;
+    loading: boolean;
     visibility: boolean;
-    selectedProject = {};
+    current: ProjectComponent;
     defaultSubscription;
 
     constructor (
@@ -47,13 +38,17 @@ export class ProjectListComponent implements OnInit {
         private settingsService: SettingsService
     ) {}
 
-    /*********************/
-    /* Методы компонента */
-    /*********************/
+    /**
+     * Возвращает настройки компонента
+     */
     getSetting(): void {
           this.visibility = true;
     }
 
+    /**
+     * Создает новый проект
+     * @param name имя нового проекта
+     */
     create(name: string): void {
         name = name.trim();
         if (!name) { return; }
@@ -63,6 +58,11 @@ export class ProjectListComponent implements OnInit {
               });
     }
 
+    /**
+     * Удаляет проект
+     * @param index идентификатор в массиве
+     * @param project модель проекта
+     */
     delete(index: number, project: ProjectComponent): void {
         this.projectService
             .delete(project.id)
@@ -71,21 +71,25 @@ export class ProjectListComponent implements OnInit {
             });
     }
 
+    /**
+     * Устанавливает активный проект
+     * @param project модель проекта
+     */
     select(project: ProjectComponent) {
-        this.selectedProject = project;
+        this.current = project;
         this.selected.emit({
             project: project
         });
         this.router.navigate(['/workplace', project.id]);
     }
 
+    /**
+     * Сворачивает компонент
+     */
     hide() {
         this.visibility = !this.visibility;
     }
 
-    /****************************/
-    /* Инициализация компонента */
-    /****************************/
     ngOnChanges() {
         if (this.default) {
             this.select(this.default);

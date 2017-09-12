@@ -6,7 +6,7 @@ import { IProject } from '../../interfaces/project/project';
     selector: 'project'
 })
 
-export class ProjectComponent implements IProject{
+export class ProjectComponent implements IProject {
     id;
     name;
     pages;

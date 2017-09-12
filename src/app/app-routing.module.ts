@@ -1,10 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
+// Components
 import { WorkplaceComponent } from './components/workplace/workplace.component';
-// import { ProjectsComponent }      from './components/projects/projects.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-// import { HeroDetailComponent }  from './hero-detail.component';
 
 const routes: Routes = [
     {
@@ -27,4 +25,4 @@ const routes: Routes = [
     imports: [RouterModule.forRoot(routes)],
     exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

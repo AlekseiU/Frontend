@@ -6,26 +6,16 @@ import { Component, OnInit, HostBinding } from '@angular/core';
       styleUrls: ['./footer.component.styl']
 })
 export class FooterComponent implements OnInit {
-    /****************************/
-    /* Инициализация переменных */
-    /****************************/
-    // visibility: boolean = false;
-
-    /***********************/
-    /* Обработчики событий */
-    /***********************/
-    @HostBinding('class.visible') visibility: boolean = false;
+    @HostBinding('class.visible') visibility: boolean;
 
     constructor(){}
-    /*********************/
-    /* Методы компонента */
-    /*********************/
+
+    /**
+     * Переключает видимость компонента
+     */
     toggleVisibility() {
         this.visibility = !this.visibility;
     }
 
-    /****************************/
-    /* Инициализация компонента */
-    /****************************/
     ngOnInit() {}
 }

@@ -11,7 +11,7 @@
 			   [(ngModel)]="project.name" />
 	</div>
 	<div class="createData"
-		 [class.collapsed]="data.length"
+		 [class.collapsed]="data && data.length"
 		 [tooltip]="'Создать новый объект'">
 		<i class="fa fa-plus createData__icon" 
 		   aria-hidden="true"
@@ -37,9 +37,7 @@
 					[class.linking]="item.linking"
 					(mousedown)="dragData(item)"
 					(mouseover)="linkData(item)"
-					(toogleFullscreen)="handleToogleFullscreen($event)"
-					(delete)="deleteData(item, i)"
-					(childCreated)="handleChildCreated($event)">
+					(toogleFullscreen)="handleToogleFullscreen($event)">
 				</data-detail>
 				<svg class="connection"
 					 height="100%" 

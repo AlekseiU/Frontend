@@ -16,28 +16,18 @@ import { DataComponent } from '../../../components/data/data.component';
     ]
 })
 export class ProjectDetailComponent implements OnInit {
-    /********************/
-    /* Входные значения */
-    /********************/
-    @Input()
-    project: ProjectComponent;
+    @Input() project: ProjectComponent;
 
-    /****************************/
-    /* Инициализация переменных */
-    /****************************/
-    draggable: DataComponent = null;
-    dragInProcess: boolean = false;
-    data: DataComponent[] = [];
-    scaleOrigin: number = 1;
-    scaleStyle: string = 'scale(' + this.scaleOrigin + ')';
-    dragCanvas: boolean = false;
+    draggable: DataComponent;
+    dragInProcess: boolean;
+    data: DataComponent[];
+    dragCanvas: boolean;
     defaultX: number;
     defaultY: number;
-    lockScale: boolean = false;
+    lockScale: boolean;
+    scaleOrigin = 1;
+    scaleStyle: string = 'scale(' + this.scaleOrigin + ')';
 
-    /***********************/
-    /* Обработчики событий */
-    /***********************/
     @HostListener('mouseup', ['$event']) mouseUp(e) {
         if (this.draggable) {
             if (!this.dragInProcess) {
@@ -77,55 +67,83 @@ export class ProjectDetailComponent implements OnInit {
     constructor(
         private projectService: ProjectService,
         private dataService: DataService
-    ){}
+    ) {}
 
-    /*********************/
-    /* Методы компонента */
-    /*********************/
+    /**
+     * Двигает компонент по оси X
+     * @param e событие мыши
+     */
     x(e: MouseEvent): number {
         return e.movementX / this.scaleOrigin;
     }
 
+    /**
+     * Двигает компонент по оси Y
+     * @param e событие мыши
+     */
     y(e: MouseEvent): number {
         return e.movementY / this.scaleOrigin;
     }
 
+    /**
+     * Реагирует на переключение полноэкранного режима у Data
+     * @param event событие переключения полноэкранного режима
+     */
     handleToogleFullscreen(event: boolean) {
         this.lockScale = event;
     }
 
+    /**
+     * Масштабирует проект
+     * @param e событие мыши
+     */
     wheel(e) {
         if (!this.lockScale) {
             e.preventDefault();
-            let delta = e.deltaY || e.detail || e.wheelDelta;
-              if (delta > 0) {
-                  this.scaleOrigin -= 0.01;
-              }
-             else {
-                 this.scaleOrigin += 0.01;
-             }
-             this.scaleStyle = 'scale(' + this.scaleOrigin + ')';
+            const delta = e.deltaY || e.detail || e.wheelDelta;
+
+            if (delta > 0) {
+                this.scaleOrigin -= 0.01;
+            } else {
+                this.scaleOrigin += 0.01;
+            }
+
+            this.scaleStyle = 'scale(' + this.scaleOrigin + ')';
         }
     }
 
+    /**
+     * Перемещает Data компонент по полотну
+     * @param data модель Data
+     */
     dragData(data: DataComponent): void {
         if (!this.lockScale) {
             this.draggable = data;
         }
     }
 
+    /**
+     * Сдвигает все элементы на полотне
+     */
     startDragCanvas(): void {
         if (!this.lockScale) {
           this.dragCanvas = true;
         }
     }
 
+    /**
+     * Связывает Data объекты между собой
+     * @param data модель Data
+     */
     linkData(data: DataComponent) {
         if (this.draggable && this.draggable !== data) {
             this.draggable.parent = data.id;
         }
     }
 
+    /**
+     * Создает Data объект
+     */
     createData(): void {
         const data: DataComponent = {
             id: null,
@@ -146,14 +164,21 @@ export class ProjectDetailComponent implements OnInit {
             });
     }
 
+    /**
+     * Обновляет Data компонент
+     * @param data модель Data
+     */
     updateData(data: DataComponent): void {
         this.dataService.update(data)
-              .subscribe(data => {
-                    // this.data.push(data);
-                    // console.log(data);
-              });
+            .subscribe(response => {
+                data = response;
+            });
     }
 
+    /**
+     * Ищет родителя Data объекта
+     * @param id идентификатор Data
+     */
     findParent(id: any) {
         if (this.data && id) {
             return this.data.find((element) => {
@@ -162,15 +187,18 @@ export class ProjectDetailComponent implements OnInit {
         }
     }
 
-    handleChildCreated(data: DataComponent) {
-        this.data.push(data);
-    }
-
-    handleScale(scale) {
+    /**
+     * Масштабирует проект
+     * @param scale масштаб
+     */
+    handleScale(scale: number) {
         this.scaleOrigin = scale;
         this.scaleStyle = 'scale(' + this.scaleOrigin + ')';
     }
 
+    /**
+     * Автосохранение проекта
+     */
     autosave() {
         this.projectService.update(this.project)
             .subscribe(() => {
@@ -178,16 +206,6 @@ export class ProjectDetailComponent implements OnInit {
             });
     }
 
-    deleteData(data: DataComponent, index: number) {
-        this.dataService.delete(data.id)
-            .subscribe((response) => {
-                this.data.splice(index, 1);
-            });
-    }
-
-    /****************************/
-    /* Инициализация компонента */
-    /****************************/
     ngOnChanges() {
         if (this.project) {
             this.dataService.list(this.project.id).subscribe(data => {
@@ -197,7 +215,6 @@ export class ProjectDetailComponent implements OnInit {
     }
 
     ngOnInit() {
-        // Автосохранение проекта
         setInterval(() => {
             this.autosave();
         }, 5000);
