@@ -54,4 +54,9 @@ export class DataFieldComponent {
     orderDown(field: IField) {
         this.field.order++;
     }
+
+    upload(field, event) {
+        console.log(field, event);
+        field.value = event.target.value;
+    }
 }

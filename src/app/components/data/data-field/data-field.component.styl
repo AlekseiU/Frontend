@@ -1,10 +1,37 @@
 :host
     font-size: 0;
     flex: 1;
+    position: relative;
+    display: flex;
+    width: 90%;
+    margin: 50px auto;
+    & .title 
+        background-color: #1f408a;
+        border: 1px solid #1f408a;
+        position: absolute;
+        width: calc(100% - 2px);
+        border-radius: 4px 4px 0 0;
+        overflow: hidden;
+        height: 32px;
+        margin-top: -33px;
+        z-index: 2;
+        border-bottom: 1px solid #fff;    
+        place-self: baseline;
+        &__input
+            width: 100%;
+            border: 0 !important;
+            height: 100%;
+            margin: 0 !important;
+            padding: 0 !important;
+            text-align: center;
+            font-size: 14px !important;
+            background-color: transparent;
+            color: #fff;
+            font-weight: 300 !important;
+            &::placeholder
+                opacity: 1;
+                color: #fff;
     &.textarea
-        display: flex;
-        width: 90%;
-        margin: 15px auto;
         & textarea
             width: calc(100% - 30px);
             border: 1px solid #1f408a;
@@ -14,17 +41,13 @@
             font-size: 14px;
             font-weight: 300;
             color: #333;
-            border-radius: 0 4px 4px 0;
+            border-radius: 0 0 4px 0;
             outline: none;
             min-height: 80px;
     &.image 
-        display: flex;
-        width: 90%;
-        margin: 15px auto;
         border: 1px solid #1f408a;
         border-left: 0;
         border-radius: 4px;
-        overflow: hidden;
         position: relative;
         & img 
             width: calc(100% - 25px);
@@ -51,9 +74,6 @@
             &:active
                 background-color: #15306b;
     &.date 
-        width: 90%;
-        margin: 15px auto;
-        display: flex;
         align-items: center;
         border: 1px solid #1f408a;
         border-left: 0;
@@ -88,21 +108,17 @@
                 &:active
                     background-color: #15306b;
     &.url 
-        display: flex;
-        width: 90%;
-        margin: 15px auto;
         flex-wrap: wrap;
         position: relative;
-        overflow: hidden;
         border-radius: 4px;
-        &__screenshot
+        & .url__screenshot
             flex: 1 0 99%;
             border: 1px solid #1f408a;
             border-top: 0;
             border-radius: 0 0 4px 4px;
         & input 
             border: 1px solid #1f408a;
-            border-radius: 0 4px 0px 0;
+            border-radius: 0;
             display: block;
             padding: 8px 10px;
             text-align: center;
@@ -117,12 +133,9 @@
             top: 0;
             height: 100%;
     &.video
-        display: flex;
         border: 1px solid #1f408a;
         border-left: 0;
         border-radius: 4px;
-        width: 90%;
-        margin: 15px auto;
         overflow: hidden;
         position: relative;
         & video
@@ -148,12 +161,9 @@
             &:active
                 background-color: #15306b;					
     &.audio
-        display: flex;
         border: 1px solid #1f408a;
         border-left: 0;
         border-radius: 4px;
-        width: 90%;
-        margin: 15px auto;
         overflow: hidden;
         position: relative;
         align-items: flex-end;
@@ -213,7 +223,7 @@
                     color: #15306b;				
 & .controls
     border-right: 0;
-    border-radius: 4px 0 0 4px;
+    border-radius: 0 0 0 4px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;

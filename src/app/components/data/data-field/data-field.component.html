@@ -1,3 +1,9 @@
+<!-- Заголовок поля -->
+<div class="title">
+	<input class="title__input"
+		   [(ngModel)]="field.title" 
+		   placeholder="Заголовок" />
+</div>
 <!-- Элементы управления для всех типов полей -->
 <div class="controls">
 	<div class="controls__up"
@@ -27,22 +33,24 @@
 		 class="empty">
 		<i class="fa fa-cloud-upload" aria-hidden="true"></i>
 		<span>Выберите изображение</span>
-		<input type="file" />
+		<input type="file"
+			   (change)="upload(field, $event)"
+			   [(ngModel)]="field.value" />
 	</div>			
 	<img *ngIf="field.value"
 		 [src]="field.value" />
 	<i class="fa fa-upload image__change" 
    	   aria-hidden="true"
    	   *ngIf="field.value"></i>
-	</ng-template>
-	<!-- Разметка для поля ссылки -->
+</ng-template>
+<!-- Разметка для поля ссылки -->
 <ng-template [ngIf]="field.type === 'url'">
 	<input type="url" 
 		   placeholder="http://example.com"
 		   [(ngModel)]="field.value" />
 	<div class="url__screenshot">
 		<div class="empty"
-			 *ngIf="!field.value">
+			 *ngIf="field">
 			<i class="fa fa-wpexplorer" 
 			   aria-hidden="true"></i>
 			<span>Укажите ссылку</span>

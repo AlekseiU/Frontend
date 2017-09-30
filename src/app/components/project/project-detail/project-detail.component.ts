@@ -86,14 +86,6 @@ export class ProjectDetailComponent implements OnInit {
     }
 
     /**
-     * Реагирует на переключение полноэкранного режима у Data
-     * @param event событие переключения полноэкранного режима
-     */
-    handleToogleFullscreen(event: boolean) {
-        this.lockScale = event;
-    }
-
-    /**
      * Масштабирует проект
      * @param e событие мыши
      */
