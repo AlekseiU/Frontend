@@ -24,11 +24,22 @@
 </div>
 <!-- Разметка для поля описания -->
 <ng-template [ngIf]="field.type === 'textarea'">
-	<textarea *ngFor="let v of field.value; let i=index; trackBy:customTrackBy"
-			  placeholder="Какой-то текст..."
-			  [value]="field.value[i]" 
-			  [(ngModel)]="field.value[i]">
-	</textarea>
+	<div class="textarea" *ngFor="let v of field.value; let i=index; trackBy:customTrackBy">
+		<textarea placeholder="Какой-то текст..."
+				  [value]="field.value[i]" 
+				  [(ngModel)]="field.value[i]">
+		</textarea>
+		<div class="textarea__delete">
+			<i class="fa fa-trash-o textarea__delete_icon" 
+			   aria-hidden="true"
+			   (click)="field.value.splice(i, 1)"></i>
+		</div>
+	</div>
+	<div class="textarea__create">
+		<i class="fa fa-plus textarea__create_icon" 
+		   aria-hidden="true"
+		   (click)="field.value.push('')"></i>
+	</div>
 </ng-template> 
 <!-- Разметка для изображения -->
 <ng-template [ngIf]="field.type === 'image'">
@@ -62,11 +73,21 @@
 </ng-template> 
 <!-- Разметка для поля даты -->
 <ng-template [ngIf]="field.type === 'date'">
-	<input type="date" 
-		   [(ngModel)]="field.value" />
-	<div class="create">
-		<i class="fa fa-plus create_icon" 
-	   	   aria-hidden="true"></i>
+	<div class="wrapper">
+		<div class="date" *ngFor="let v of field.value; let i=index; trackBy:customTrackBy">
+			<input type="date" 
+				[(ngModel)]="field.value[i]" />
+			<div class="date__delete">
+				<i class="fa fa-trash-o date__delete_icon" 
+					aria-hidden="true"
+					(click)="field.value.splice(i, 1)"></i>
+			</div>
+		</div>
+		<div class="create">
+			<i class="fa fa-plus create_icon" 
+				aria-hidden="true"
+				(click)="field.value.push('')"></i>
+		</div>
 	</div>
 </ng-template>
 <!-- Разметка для поля видео -->
