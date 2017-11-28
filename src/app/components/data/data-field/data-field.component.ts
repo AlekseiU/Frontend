@@ -59,4 +59,8 @@ export class DataFieldComponent {
         console.log(field, event);
         field.value = event.target.value;
     }
+
+    customTrackBy(index: number, obj: any): any {
+        return  index;
+    }
 }

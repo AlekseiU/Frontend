@@ -24,8 +24,11 @@
 </div>
 <!-- Разметка для поля описания -->
 <ng-template [ngIf]="field.type === 'textarea'">
-	<textarea placeholder="Какой-то текст..."
-			  [(ngModel)]="field.value"></textarea>
+	<textarea *ngFor="let v of field.value; let i=index; trackBy:customTrackBy"
+			  placeholder="Какой-то текст..."
+			  [value]="field.value[i]" 
+			  [(ngModel)]="field.value[i]">
+	</textarea>
 </ng-template> 
 <!-- Разметка для изображения -->
 <ng-template [ngIf]="field.type === 'image'">

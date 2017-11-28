@@ -152,12 +152,12 @@ export class DataDetailComponent implements OnInit {
             });
     }
 
-    ngOnChanges() {
-        this.parent = this.dataList.find((value: DataComponent) => {
-            return value.id === this.dataItem.parent;
-        });
-        this.parent = this.parent ? this.parent : null;
-    }
+    // ngOnChanges() {
+    //     this.parent = this.dataList.find((value: DataComponent) => {
+    //         return value.id === this.dataItem.parent;
+    //     });
+    //     this.parent = this.parent ? this.parent : null;
+    // }
 
     ngOnInit() {
         if (!this.dataItem.coordinates.x) {

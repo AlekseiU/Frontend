@@ -49,7 +49,7 @@ export class DataGroupComponent {
         const field = {
             id: null,
             type: type,
-            value: '',
+            value: [""],
             order: 0,
             group: group.id
         };

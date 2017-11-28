@@ -32,13 +32,15 @@ export class ProjectDetailComponent implements OnInit {
         if (this.draggable) {
             if (!this.dragInProcess) {
                 this.lockScale = true;
+            } else {
+                this.updateData(this.draggable);
             }
-            this.updateData(this.draggable);
             this.draggable = null;
             this.dragInProcess = false;
         }
         this.dragCanvas = false;
     }
+
     @HostListener('mousemove', ['$event']) mouseMove(e) {
         if (this.draggable) {
             this.dragInProcess = true;
@@ -62,7 +64,7 @@ export class ProjectDetailComponent implements OnInit {
                 }
             }
         }
-      }
+    }
 
     constructor(
         private projectService: ProjectService,
@@ -208,7 +210,7 @@ export class ProjectDetailComponent implements OnInit {
 
     ngOnInit() {
         setInterval(() => {
-            this.autosave();
+            // this.autosave();
         }, 5000);
     }
 }

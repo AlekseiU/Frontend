@@ -5,7 +5,7 @@
 export interface IField {
     id: number;
     type: string;
-    value: string;
+    value: string[];
     order: number;
     group: number;
 }
