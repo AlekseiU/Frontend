@@ -61,13 +61,25 @@
 <ng-template [ngIf]="field.type === 'url'">
 	<input type="url" 
 		   placeholder="http://example.com"
-		   [(ngModel)]="field.value" />
+		   [(ngModel)]="field.value[0]" />
 	<div class="url__screenshot">
 		<div class="empty"
-			 *ngIf="field">
+			 *ngIf="field && !field.scrap">
 			<i class="fa fa-wpexplorer" 
-			   aria-hidden="true"></i>
+			   aria-hidden="true"
+			   (click)="parseUrl(field.value[0])"></i>
 			<span>Укажите ссылку</span>
+		</div>
+		<div class="info"
+			 *ngIf="field && field.scrap">
+			<div class="info__image">
+				<img [src]="field.scrap.image" />
+			</div>
+			<div class="info__col">
+				<div class="info__title">{{field.scrap.title}}</div>
+				<div class="info__description">{{field.scrap.description}}</div>
+				<div class="info__link"><a [href]="field.scrap.link">{{field.scrap.link}}</a></div>
+			</div>
 		</div>
 	</div>
 </ng-template> 

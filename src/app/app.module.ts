@@ -39,6 +39,8 @@ import { LogoComponent } from './ui/logo/logo.component';
 // Providers
 import { ResponseService } from './services/providers/response/response.service';
 import { ErrorService } from './services/providers/error/error.service';
+// Scrapper
+import { ScrapperService } from './services/scrapper/scrapper.service';
 
 @NgModule({
     declarations: [
@@ -81,7 +83,8 @@ import { ErrorService } from './services/providers/error/error.service';
     ],
     providers: [
         ResponseService,
-        ErrorService
+        ErrorService,
+        ScrapperService
     ],
     bootstrap: [AppComponent]
 })

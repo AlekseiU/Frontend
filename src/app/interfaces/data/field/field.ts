@@ -8,4 +8,5 @@ export interface IField {
     value: string[];
     order: number;
     group: number;
+    scrap: any;
 }

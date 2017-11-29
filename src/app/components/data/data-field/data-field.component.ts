@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 // Services
 import { FieldService } from '../../../services/data/field/field.service';
+import { ScrapperService } from '../../../services/scrapper/scrapper.service';
 // Components
 import { DataComponent } from '../../../components/data/data.component';
 // Interfaces
@@ -9,12 +10,13 @@ import { IGroup } from '../../../interfaces/data/group/group';
 import { IData } from '../../../interfaces/data/data';
 
 @Component({
-  selector: 'data-field',
-  templateUrl: './data-field.component.html',
-  styleUrls: ['./data-field.component.styl'],
-  providers: [
-      FieldService
-  ]
+    selector: 'data-field',
+    templateUrl: './data-field.component.html',
+    styleUrls: ['./data-field.component.styl'],
+    providers: [
+        FieldService,
+        ScrapperService
+    ]
 })
 export class DataFieldComponent {
     @Input() field: IField;
@@ -22,7 +24,8 @@ export class DataFieldComponent {
     @Input() data: DataComponent;
 
     constructor(
-        private fieldService: FieldService
+        private fieldService: FieldService,
+        private scrapper: ScrapperService
     ) {}
 
     /**
@@ -62,5 +65,13 @@ export class DataFieldComponent {
 
     customTrackBy(index: number, obj: any): any {
         return  index;
+    }
+
+    parseUrl(url: string) {
+        this.scrapper.parse(url)
+            .subscribe((response) => {
+                console.log(response);
+                this.field.scrap = response;
+            });
     }
 }
