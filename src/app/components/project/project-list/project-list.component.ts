@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { Observable } from 'rxjs/Observable';
 // Services
-import { SettingsService } from '../../../services/settings/settings.service';
 import { ProjectService } from '../../../services/project/project.service';
 // Components
 import { ProjectComponent } from '../../../components/project/project.component';
@@ -13,7 +12,6 @@ import { ProjectComponent } from '../../../components/project/project.component'
     templateUrl: './project-list.component.html',
     styleUrls: ['./project-list.component.styl'],
     providers: [
-        SettingsService,
         ProjectService
     ]
 })
@@ -35,7 +33,6 @@ export class ProjectListComponent implements OnInit {
     constructor (
         private router: Router,
         private projectService: ProjectService,
-        private settingsService: SettingsService
     ) {}
 
     /**
