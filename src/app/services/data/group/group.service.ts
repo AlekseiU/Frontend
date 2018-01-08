@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Headers, Http } from '@angular/http';
 // Providers
-import { ResponseService } from '../../providers/response/response.service';
-import { ErrorService } from '../../providers/error/error.service';
-import { UserService } from '../../providers/user/user.service';
+import { ResponseService } from '../../../providers/response/response.service';
+import { ErrorService } from '../../../providers/error/error.service';
+import { UserService } from '../../../providers/user/user.service';
 // Libraries
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';

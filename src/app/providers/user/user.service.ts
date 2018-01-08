@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 import { Headers, Http } from '@angular/http';
 import { Router } from '@angular/router';
 // Providers
-import { ResponseService } from '../../providers/response/response.service';
-import { ErrorService } from '../../providers/error/error.service';
+import { ResponseService } from '../response/response.service';
+import { ErrorService } from '../error/error.service';
 // Libaries
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 // Interfaces
-import { IUser } from '../../../interfaces/user/user';
+import { IUser } from '../../interfaces/user/user';
 
 @Injectable()
 export class UserService {

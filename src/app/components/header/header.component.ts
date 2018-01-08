@@ -5,7 +5,7 @@ import {ProfileDialogComponent} from '../../dialogs/profile/profile.component';
 import {LoginDialogComponent} from '../../dialogs/login/login.component';
 import {RegistrationDialogComponent} from '../../dialogs/registration/registration.component';
 // Providers
-import {UserService} from '../../services/providers/user/user.service';
+import {UserService} from '../../providers/user/user.service';
 
 @Component({
     selector: 'ma-header',

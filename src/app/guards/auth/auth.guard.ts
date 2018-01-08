@@ -5,7 +5,7 @@ import { MdDialog } from '@angular/material';
 // Components
 import {LoginDialogComponent} from '../../dialogs/login/login.component';
 // Providers
-import { UserService } from '../../services/providers/user/user.service';
+import { UserService } from '../../providers/user/user.service';
 
 @Injectable()
 export class AuthGuard implements CanActivate {

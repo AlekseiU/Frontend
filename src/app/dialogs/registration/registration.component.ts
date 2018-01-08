@@ -4,7 +4,7 @@ import { MdDialog, MdDialogRef } from '@angular/material';
 // Components
 import { LoginDialogComponent } from '../login/login.component';
 // Services
-import { UserService } from '../../services/providers/user/user.service';
+import { UserService } from '../../providers/user/user.service';
 // Interfaces
 import { IUser } from '../../interfaces/user/user';
 

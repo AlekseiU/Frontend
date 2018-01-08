@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 // Providers
-import { ErrorService } from '../../providers/error/error.service';
+import { ErrorService } from '../error/error.service';
 // Libraries
 import { Observable } from 'rxjs/Observable';
 // Interfaces
-import { IResponse } from '../../../interfaces/response/response';
+import { IResponse } from '../../interfaces/response/response';
 
 @Injectable()
 export class ResponseService {

@@ -1,6 +1,6 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
 // Providers
-import {UserService} from '../../services/providers/user/user.service';
+import {UserService} from '../../providers/user/user.service';
 
 @Component({
       selector: 'ma-footer',

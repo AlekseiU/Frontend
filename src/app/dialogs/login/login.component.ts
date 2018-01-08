@@ -5,7 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 // Components
 import { RegistrationDialogComponent } from '../registration/registration.component';
 // Services
-import { UserService } from '../../services/providers/user/user.service';
+import { UserService } from '../../providers/user/user.service';
 // Interfaces
 import { IUser } from '../../interfaces/user/user';
 
