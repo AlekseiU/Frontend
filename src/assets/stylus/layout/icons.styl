@@ -1,0 +1,38 @@
+@import '../themes/*.styl'
+@import '../mixins/*.styl'
+
+.icon
+    border-radius(radius.round);
+    transition(transitions.normal);
+    box-shadow(shadow.normal);
+    color: color.white;
+    font-size: icon.normal.font;
+    width: icon.normal.width;
+    height: icon.normal.height;
+    cursor: pointer;
+    border: border.white.solid;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &-blue
+        @extend .icon
+        background-color: color.blue.normal;
+        &:hover
+            background-color: color.blue.hover;
+        &:active
+            background-color: color.blue.active;
+    &-red
+        @extend .icon
+        background: color.red.normal;
+        &:hover
+            background-color: color.red.hover;
+        &:active
+            background-color: color.red.active;
+    &-big
+        width: icon.big.width;
+        height: icon.big.height;
+        font-size: icon.big.font;
+    &-small
+        width: icon.small.width;
+        height: icon.small.height;
+        font-size: icon.small.font;

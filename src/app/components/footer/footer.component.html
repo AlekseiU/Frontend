@@ -1,6 +1,7 @@
 <div class="marker"
 	 (click)="toggleVisibility()"
-	 [class.close]="visibility">
+	 [class.close]="visibility"
+	 *ngIf="userService.isAuth()">
 	<i class="fa fa-angle-double-up" aria-hidden="true"></i>
 	<span>А - Я</span>
 </div>

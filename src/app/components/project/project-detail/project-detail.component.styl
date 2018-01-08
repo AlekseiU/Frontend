@@ -1,3 +1,5 @@
+@import "../../../../assets/stylus/export.styl"
+
 @keyframes collapse
 	from
 		max-width: 100%;
@@ -28,26 +30,26 @@
 			cursor: grabbing;
 			cursor: -webkit-grabbing;
 	& .name
-		background-color: #1f408a;
-		box-shadow: 0px 0px 15px #000;
-		border-bottom: 1px solid #fff;
+		box-shadow(shadow.normal);
+		background-color: color.blue.normal;
+		border-bottom: border.white.solid;
 		position: absolute;
 		width: 100%;
 		z-index: 10;
 		&__input
+			color: color.white;
+			font-size: font.extra-big;
 			display: block;
 			width: 100%;
 			border: 0;
 			margin: 0;
 			background-color: transparent;
-			color: #fff;
 			text-align: center;
 			padding: 20px 0;
-			font-size: 20px;
 			font-weight: 100;
 			&::placeholder
 				opacity: 1;
-				color: #fff;
+				color: color.white;
 	& .dataList
 		align-items: center;
 		justify-content: center;
@@ -66,7 +68,7 @@
 		& .connection
 			overflow: visible;
 			&__line
-				stroke: #1f408a;
+				stroke: color.blue.normal;
 				stroke-width: 2;
 				stroke-dasharray: 1% 1%;
 				stroke-dashoffset: 0;
@@ -83,35 +85,20 @@
 		z-index: 20;
 		width: 100%;
 		&__icon
-			color: #fff;
-			background-color: #1f408a;
-			font-size: 50px;
-			cursor: pointer;
-			box-shadow: 0px 0px 15px #000;
-			border-radius: 50%;
-			width: 100px;
-			height: 100px;
-			text-align: center;
-			line-height: 100px;
-			border: 1px solid #fff;
-			transition: all 0.3s ease;
-			position: relative;
-			&:hover
-				background-color: #3458a7;
-			&:active
-				background-color: #15306b;
+			@extend .icon-blue;
+			@extend .icon-big;
 		&.collapsed
+			max-width: icon.normal.width;
+			max-height: icon.normal.height;
 			animation-name: collapse;
 			animation-duration: 0.3s;
 			animation-timing-function: ease;
-			max-width: 50px;
-			max-height: 50px;
 			left: 10px;
 			top: 7px;
 			z-index: 50;
 			& .createData__icon
-				width: 50px;
-				height: 50px;
+				width: icon.normal.width;
+				height: icon.normal.height;
 				line-height: 50px;
 				font-size: 30px;
 				margin-top: 0px;			

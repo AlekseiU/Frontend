@@ -1,7 +1,7 @@
 <header [class.closed]="!visibility">
 	<div class="container">
 		<div class="row">
-			<ui-logo></ui-logo>
+			<logo></logo>
 			<div class="search">
 				<div class="search__group">
 					<input class="search__input"
@@ -10,24 +10,16 @@
 					<button class="search__button">Найти</button>
 				</div>
 			</div>
-			<div class="help"
-				 (click)="openHelp()">
-				<i class="fa fa-question help__icon" 
-				   aria-hidden="true"></i>
-				<span class="settings__title">Справка</span>
-			</div>
-			<div class="account"
-				 (click)="openProfile()">
+			<div class="account" (click)="login()" *ngIf="!userService.isAuth()">
 				<i class="fa fa-user account__icon" 
 				   aria-hidden="true"></i>
-				<span class="settings__title">Профиль</span>
-			</div>			
-			<div class="settings"
-				 (click)="openSettings()">
-				<i class="fa fa-cogs settings__icon" 
+				<span class="account__title">Войти</span>
+			</div>
+			<div class="profile" (click)="profile()" *ngIf="userService.isAuth()">
+				<i class="fa fa-cogs profile__icon" 
 				   aria-hidden="true"></i>
-				<span class="settings__title">Настройки</span>
-			</div>			
+				<span class="profile__title">Профиль</span>
+			</div>
 		</div>
 	</div>
 </header>

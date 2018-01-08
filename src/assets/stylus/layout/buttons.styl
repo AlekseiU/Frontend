@@ -1,0 +1,28 @@
+@import '../themes/*.styl'
+@import '../mixins/*.styl'
+
+.button    
+    border-radius(radius.normal);
+    box-shadow(shadow.normal);
+    color: color.white;
+    border: border.white.solid;
+    font-size: font.button;
+    font-weight: 300;
+    padding: 10px 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    &-blue
+        @extend .button
+        background-color: color.blue.normal;
+        &:hover
+            background-color: color.blue.hover;
+        &:active
+            background-color: color.blue.active;
+    &-red
+        @extend .button
+        background-color: color.red.normal;
+        &:hover
+            background-color: color.red.hover;
+        &:active
+            background-color: color.red.active;    

@@ -1,28 +1,18 @@
+@import "../../../../assets/stylus/export.styl"
+
 :host
     & .fieldset__create
-        background-color: #1f408a;
+        background-color: color.blue.normal;
         width: 100%;
         text-align: center;
         padding: 6px 0;
         position: relative;
         margin: 50px 0 0;
+        display: flex;
+        justify-content: center;
         &_icon
-            cursor: pointer;
-            background-color: #1f408a;
-            box-shadow: 0px 0px 15px #000;
-            border: 1px solid #fff;
-            color: #fff;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            text-align: center;
-            line-height: 30px;
-            font-size: 16px;
-            transition: all 0.3s ease;
-            &:hover
-                background-color: #3458a7;
-            &:active
-                background-color: #15306b;
+            @extend .icon-blue;
+            @extend .icon-small;
             &.opened
                 transform: rotate(45deg);
         &_list
@@ -33,13 +23,13 @@
             left: 50%;
             bottom: 55px;
             z-index: 1;
-            background-color: #1f408a;
-            box-shadow: 0px 0px 15px #000;
-            border: 1px solid #fff;
-            color: #fff;
-            border-radius: 4px;
+            background-color: color.blue.normal;
+            box-shadow: shadow.normal;
+            border: border.white.solid;
+            color: color.white;
+            border-radius: radius.normal;
             padding: 0;
-            font-size: 12px;
+            font-size: font.small;
             font-weight: 100;
             width: 260px;
             margin-left: -130px;
@@ -59,19 +49,19 @@
                 pointer-events: none;
             &:after
                 border-color: rgba(136,183,213,0);
-                border-top-color: #1f408a;
+                border-top-color: color.blue.normal;
                 border-width: 10px;
                 margin-left: -10px;
             &:before
                 border-color: rgba(194,225,245,0);
-                border-top-color: #fff;
+                border-top-color: color.white;
                 border-width: 11px;
                 margin-left: -11px;
             & .item 
                 display: block;
                 width: calc(30% - 10px);
                 padding: 10px 5px;
-                border-radius: 4px;
+                border-radius: radius.normal;
                 cursor: pointer;
                 transition: background-color 0.3s ease;
                 &__name
@@ -85,9 +75,9 @@
                 & span 
                     font-size: 10px;
                 &:hover
-                    background-color: #3458a7;
+                    background-color: color.blue.hover;
                 &:active
-                    background-color: #15306b;
+                    background-color: color.blue.active;
     & .fieldset__delete
         text-align: center;
         padding: 6px;
@@ -95,35 +85,21 @@
         bottom: 0;
         left: 0;
         &_icon
-            cursor: pointer;
-            background-color: #BD001C;
-            box-shadow: 0px 0px 15px #000;
-            border: 1px solid #fff;
-            color: #fff;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            text-align: center;
-            line-height: 30px;
-            font-size: 16px;
-            transition: all 0.3s ease;
-            &:hover
-                background-color: #d71733;
-            &:active
-                background-color: #b20821;
+            @extend .icon-red;
+            @extend .icon-small;
     & .data
         display: block;
     & .fieldset
         margin: 20px 20px 30px;
-        border: 1px solid #fff;
-        border-radius: 4px;
-        box-shadow: 0px 0px 15px #000;
+        border: border.white.solid;
+        border-radius: radius.normal;
+        box-shadow: shadow.normal;
         outline: none;
         position: relative;
         overflow: hidden;
         &:after
             content: '';
-            border-bottom: 1px dashed #1f408a;
+            border-bottom: border.blue.dashed;
             width: 100%;
             height: 1px;
             display: block;
@@ -133,81 +109,63 @@
         &:last-child:after
             display: none;
         &__order
+            @extend .icon-blue;
+            @extend .icon-small;
             position: absolute;
             left: 7px;
             top: 7px;
-            font-size: 16px;
-            background-color: #1f408a;
-            box-shadow: 0px 0px 15px #000;
-            border: 1px solid #fff;
-            color: #fff;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
+            flex-direction: column;
+            align-items: stretch;
             text-align: center;
-            line-height: 30px;
-            cursor: pointer;
             overflow: hidden;
+            &:hover,
+            &:active
+                background-color: color.blue.normal;
             &_up
-                display: block;
-                transition: all 0.3s ease;
-                position: relative;
-                top: 0px;
+                transition: transitions.normal;
+                display: flex;
+                align-items: flex-start;
+                justify-content: center;
                 &:hover
-                    background-color: #3458a7;
+                    background-color: color.blue.hover;
                 &:active
-                    background-color: #15306b;         
+                    background-color: color.blue.active; 
             &_down
-                display: block;
-                transition: all 0.3s ease;
-                position: relative;
-                top: -3px;
+                transition: transitions.normal;
+                display: flex;
+                align-items: flex-end;
+                justify-content: center;
                 &:hover
-                    background-color: #3458a7;
+                    background-color: color.blue.hover;
                 &:active
-                    background-color: #15306b;
+                    background-color: color.blue.active;
         &__name
-            background-color: #1f408a;
+            background-color: color.blue.normal;
             position: relative;
             outline: none;
             &_input
                 margin: 0;
                 padding: 0;
                 border: 0;
-                font-family: Roboto;
-                font-size: 16px;
+                font-size: font.normal;
                 font-weight: 100;
                 background: transparent;
-                color: #fff;
+                color: color.white;
                 width: 100%;
                 text-align: center;
                 padding: 15px 0;
                 &::-webkit-input-placeholder
-                    color: #fff;
+                    color: color.white;
             &::-webkit-details-marker
                 display: none;
             &_toggle
+                @extend .icon-blue;
+                @extend .icon-small;
                 position: absolute;
                 right: 7px;
                 top: 7px;
-                font-size: 22px;
-                background-color: #1f408a;
-                box-shadow: 0px 0px 15px #000;
-                border: 1px solid #fff;
-                color: #fff;
-                border-radius: 50%;
-                width: 30px;
-                height: 30px;
-                text-align: center;
-                line-height: 32px;
-                cursor: pointer;
-                transition: all 0.3s ease;
-                &:hover
-                    background-color: #3458a7;
-                &:active
-                    background-color: #15306b;
         &[open]
-            border: 1px solid #1f408a;
+            border: border.blue.solid;
             overflow: visible;
             & .fieldset__name_toggle
                 transform: scale(1, -1);

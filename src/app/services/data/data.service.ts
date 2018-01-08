@@ -3,6 +3,7 @@ import { Headers, Http } from '@angular/http';
 // Providers
 import { ResponseService } from '../providers/response/response.service';
 import { ErrorService } from '../providers/error/error.service';
+import { UserService } from '../providers/user/user.service';
 // Libaries
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -17,7 +18,8 @@ export class DataService {
     constructor(
         private http: Http,
         private response: ResponseService,
-        private error: ErrorService
+        private error: ErrorService,
+        private user: UserService
     ) {}
 
     /**
@@ -26,10 +28,15 @@ export class DataService {
      */
     list(id: number) {
         const url = `${this.apiUrl}/project/${id}`;
+        const headers = new Headers({ 'Content-Type': 'application/json' });
 
-        return this.http.get(url)
-                .map(r => this.response.parse(r))
-                .catch(this.error.handle);
+        if (this.user.isAuth()) {
+            this.user.setAuthHeader(headers);
+        }
+
+        return this.http.get(url, { headers: headers })
+                    .map(r => this.response.parse(r))
+                    .catch(this.error.handle);
     }
 
     /**
@@ -38,10 +45,15 @@ export class DataService {
      */
     delete(id: number): Observable<number> {
         const url = `${this.apiUrl}/${id}`;
+        const headers = new Headers({ 'Content-Type': 'application/json' });
 
-        return this.http.delete(url, { headers: this.headers })
-                .map(r => this.response.parse(r))
-                .catch(this.error.handle);
+        if (this.user.isAuth()) {
+            this.user.setAuthHeader(headers);
+        }
+
+        return this.http.delete(url, { headers: headers })
+                    .map(r => this.response.parse(r))
+                    .catch(this.error.handle);
     }
 
     /**
@@ -49,13 +61,19 @@ export class DataService {
      * @param {IData} data модель Data объекта
      */
     create(data: IData): Observable<IData> {
+        const headers = new Headers({ 'Content-Type': 'application/json' });
+
+        if (this.user.isAuth()) {
+            this.user.setAuthHeader(headers);
+        }
+
         return this.http.post(
-                    this.apiUrl,
-                    JSON.stringify(data),
-                    { headers: this.headers }
-                )
-                .map(r => this.response.parse(r))
-                .catch(this.error.handle);
+                        this.apiUrl,
+                        JSON.stringify(data),
+                        { headers: headers }
+                    )
+                    .map(r => this.response.parse(r))
+                    .catch(this.error.handle);
     }
 
     /**
@@ -64,13 +82,18 @@ export class DataService {
      */
     update(data: IData): Observable<IData> {
         const url = `${this.apiUrl}/${data.id}`;
+        const headers = new Headers({ 'Content-Type': 'application/json' });
+
+        if (this.user.isAuth()) {
+            this.user.setAuthHeader(headers);
+        }
 
         return this.http.put(
-                    url,
-                    JSON.stringify(data),
-                    { headers: this.headers }
-                )
-                .map(r => this.response.parse(r))
-                .catch(this.error.handle);
+                        url,
+                        JSON.stringify(data),
+                        { headers: headers }
+                    )
+                    .map(r => this.response.parse(r))
+                    .catch(this.error.handle);
     }
 }

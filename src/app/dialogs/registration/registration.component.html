@@ -1,0 +1,26 @@
+<form class="registration" #form="ngForm" (ngSubmit)="register(form)" novalidate>
+    <div class="registration__toolbar">
+        <div class="registration__toolbar_back" (click)="login()" [tooltip]="'Войти'">
+            <i aria-hidden="true" class="fa fa-chevron-left registration__toolbar_back-icon"></i>
+        </div>
+        <span class="registration__toolbar_title">Регистрация</span>
+    </div>
+    <div class="registration__elements">
+        <div class="row">
+            <label class="registration__elements_label" for="email">Email:</label>
+            <input class="registration__elements_input" type="email" id="email" name="email" [email]="true" ngModel required placeholder="example@site.com" />
+        </div>
+        <div class="row">
+            <label class="registration__elements_label" for="password">Пароль:</label>
+            <input class="registration__elements_input" type="password" id="password" name="password" [minlength]="4" ngModel required placeholder="n8*Rn%HS12_s^6" />
+        </div>
+        <div class="row">
+            <label class="registration__elements_label" for="passwordConfirm">Подтверждение пароля:</label>
+            <input class="registration__elements_input" type="password" id="passwordConfirm" name="passwordConfirm" [minlength]="4" ngModel required placeholder="n8*Rn%HS12_s^6" />
+        </div>
+    </div>
+    <div class="registration__buttons">
+        <button class="registration__buttons_approve">Зарегистрироваться</button>
+        <span class="registration__buttons_close" (click)="close()">Закрыть</span>
+    </div>
+</form>

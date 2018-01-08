@@ -1,14 +1,18 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
+// Providers
+import {UserService} from '../../services/providers/user/user.service';
 
 @Component({
       selector: 'ma-footer',
       templateUrl: './footer.component.html',
-      styleUrls: ['./footer.component.styl']
+      styleUrls: ['./footer.component.styl'],
 })
-export class FooterComponent implements OnInit {
+export class FooterComponent {
     @HostBinding('class.visible') visibility: boolean;
 
-    constructor(){}
+    constructor(
+        private userService: UserService,
+    ) {}
 
     /**
      * Переключает видимость компонента
@@ -16,6 +20,4 @@ export class FooterComponent implements OnInit {
     toggleVisibility() {
         this.visibility = !this.visibility;
     }
-
-    ngOnInit() {}
 }

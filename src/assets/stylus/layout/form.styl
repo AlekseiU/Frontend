@@ -1,0 +1,20 @@
+@import '../themes/*.styl'
+@import '../mixins/*.styl'
+    
+.label 
+    font-size: 16px;
+    font-weight: 300;
+    cursor: pointer;            
+    margin: 0 0 8px;
+.input
+    border-radius(radius.normal);
+    border: border.blue.solid;
+    font-size: font.normal;
+    font-weight: 100;
+    padding: 10px 20px;
+    &:hover,
+    &:focus,
+    &:active
+        // box-shadow(shadow.normal);
+    &.ng-invalid:not(.ng-untouched)
+        border: border.red.solid;

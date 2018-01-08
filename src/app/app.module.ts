@@ -26,10 +26,15 @@ import { DataFieldComponent } from './components/data/data-field/data-field.comp
 import { DataGroupComponent } from './components/data/data-group/data-group.component';
 // Settings
 import { SettingsComponent } from './components/settings/settings.component';
-// Profile
-import { ProfileComponent } from './components/profile/profile.component';
+// Dialogs
+import { ProfileDialogComponent } from './dialogs/profile/profile.component';
+import { RegistrationDialogComponent } from './dialogs/registration/registration.component';
+import { LoginDialogComponent } from './dialogs/login/login.component';
 // Help
 import { HelpComponent } from './components/help/help.component';
+// Pages
+import { IndexComponent } from './pages/index/index.component';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 // UI
 import { LoaderComponent } from './ui/loader/loader.component';
 import { RangeComponent } from './ui/range/range.component';
@@ -39,8 +44,11 @@ import { LogoComponent } from './ui/logo/logo.component';
 // Providers
 import { ResponseService } from './services/providers/response/response.service';
 import { ErrorService } from './services/providers/error/error.service';
+import { UserService } from './services/providers/user/user.service';
 // Scrapper
 import { ScrapperService } from './services/scrapper/scrapper.service';
+// Guards
+import { AuthGuard } from './guards/auth/auth.guard';
 
 @NgModule({
     declarations: [
@@ -58,16 +66,20 @@ import { ScrapperService } from './services/scrapper/scrapper.service';
         TooltipComponent,
         TooltipDirective,
         SettingsComponent,
-        ProfileComponent,
         HelpComponent,
         LogoComponent,
-        DataGroupComponent
+        DataGroupComponent,
+        ProfileDialogComponent,
+        RegistrationDialogComponent,
+        LoginDialogComponent,
+        IndexComponent,
+        NotFoundComponent,
     ],
     entryComponents: [
         TooltipComponent,
-        SettingsComponent,
-        ProfileComponent,
-        HelpComponent
+        ProfileDialogComponent,
+        RegistrationDialogComponent,
+        LoginDialogComponent,
     ],
     imports: [
         BrowserModule,
@@ -78,13 +90,12 @@ import { ScrapperService } from './services/scrapper/scrapper.service';
         MaterialModule,
         BrowserAnimationsModule
     ],
-    exports: [
-        SettingsComponent
-    ],
     providers: [
         ResponseService,
         ErrorService,
-        ScrapperService
+        ScrapperService,
+        UserService,
+        AuthGuard
     ],
     bootstrap: [AppComponent]
 })

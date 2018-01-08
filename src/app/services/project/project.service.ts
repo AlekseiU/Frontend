@@ -3,6 +3,7 @@ import { Headers, Http } from '@angular/http';
 // Providers
 import { ResponseService } from '../providers/response/response.service';
 import { ErrorService } from '../providers/error/error.service';
+import { UserService } from '../providers/user/user.service';
 // Libraries
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -17,16 +18,23 @@ export class ProjectService {
     constructor(
         private http: Http,
         private response: ResponseService,
-        private error: ErrorService
+        private error: ErrorService,
+        private user: UserService
     ) { }
 
     /**
      * Выводит список проектов
      */
     list(): Observable<IProject[]> {
-        return this.http.get(this.apiUrl)
-                .map(r => this.response.parse(r))
-                .catch(this.error.handle);
+        const headers = new Headers({ 'Content-Type': 'application/json' });
+
+        if (this.user.isAuth()) {
+            this.user.setAuthHeader(headers);
+        }
+
+        return this.http.get(this.apiUrl, { headers: headers })
+            .map(r => this.response.parse(r))
+            .catch(this.error.handle);
     }
 
     /**
@@ -35,10 +43,15 @@ export class ProjectService {
      */
     item(id: number): Observable<IProject> {
         const url = `${this.apiUrl}/${id}`;
+        const headers = new Headers({ 'Content-Type': 'application/json' });
 
-        return this.http.get(url)
-                .map(r => this.response.parse(r))
-                .catch(this.error.handle);
+        if (this.user.isAuth()) {
+            this.user.setAuthHeader(headers);
+        }
+
+        return this.http.get(url, { headers: headers })
+                    .map(r => this.response.parse(r))
+                    .catch(this.error.handle);
     }
 
     /**
@@ -47,10 +60,15 @@ export class ProjectService {
      */
     delete(id: number): Observable<number> {
         const url = `${this.apiUrl}/${id}`;
+        const headers = new Headers({ 'Content-Type': 'application/json' });
 
-        return this.http.delete(url, { headers: this.headers })
-                .map(r => this.response.parse(r))
-                .catch(this.error.handle);
+        if (this.user.isAuth()) {
+            this.user.setAuthHeader(headers);
+        }
+
+        return this.http.delete(url, { headers: headers })
+                    .map(r => this.response.parse(r))
+                    .catch(this.error.handle);
     }
 
     /**
@@ -58,16 +76,22 @@ export class ProjectService {
      * @param {String} name имя проекта
      */
     create(name: string): Observable<IProject> {
+        const headers = new Headers({ 'Content-Type': 'application/json' });
+
+        if (this.user.isAuth()) {
+            this.user.setAuthHeader(headers);
+        }
+
         return this.http.post(
-                    this.apiUrl,
-                    JSON.stringify({
-                        name: name,
-                        pages: 0
-                    }),
-                    { headers: this.headers }
-                )
-                .map(r => this.response.parse(r))
-                .catch(this.error.handle);
+                        this.apiUrl,
+                        JSON.stringify({
+                            name: name,
+                            pages: 0
+                        }),
+                        { headers: headers }
+                    )
+                    .map(r => this.response.parse(r))
+                    .catch(this.error.handle);
     }
 
     /**
@@ -76,13 +100,18 @@ export class ProjectService {
      */
     update(project: IProject): Observable<IProject> {
         const url = `${this.apiUrl}/${project.id}`;
+        const headers = new Headers({ 'Content-Type': 'application/json' });
+
+        if (this.user.isAuth()) {
+            this.user.setAuthHeader(headers);
+        }
 
         return this.http.put(
-                    url,
-                    JSON.stringify(project),
-                    { headers: this.headers }
-                )
-                .map(r => this.response.parse(r))
-                .catch(this.error.handle);
+                        url,
+                        JSON.stringify(project),
+                        { headers: headers }
+                    )
+                    .map(r => this.response.parse(r))
+                    .catch(this.error.handle);
     }
 }

@@ -1,0 +1,26 @@
+<form class="profile" #form="ngForm" (ngSubmit)="profile(form)" novalidate>
+  <div class="profile__toolbar">
+      <div class="profile__toolbar_logout" (click)="logout()" [tooltip]="'Выйти'">
+          <i aria-hidden="true" class="fa fa-sign-out profile__toolbar_logout-icon"></i>
+      </div>
+      <span class="profile__toolbar_title">Профиль</span>
+  </div>
+  <div class="profile__elements">
+      <div class="row">
+          <label class="profile__elements_label" for="email">Email:</label>
+          <input class="profile__elements_input" type="email" id="email" name="email" [email]="true" ngModel required placeholder="example@site.com" />
+      </div>
+      <div class="row">
+          <label class="profile__elements_label" for="password">Пароль:</label>
+          <input class="profile__elements_input" type="password" id="password" name="password" [minlength]="4" ngModel required placeholder="n8*Rn%HS12_s^6" />
+      </div>
+      <div class="row">
+          <label class="profile__elements_label" for="passwordConfirm">Подтверждение пароля:</label>
+          <input class="profile__elements_input" type="password" id="passwordConfirm" name="passwordConfirm" [minlength]="4" ngModel required placeholder="n8*Rn%HS12_s^6" />
+      </div>
+  </div>
+  <div class="profile__buttons">
+      <button class="profile__buttons_approve">Сохранить</button>
+      <span class="profile__buttons_close" (click)="close()">Закрыть</span>
+  </div>
+</form>

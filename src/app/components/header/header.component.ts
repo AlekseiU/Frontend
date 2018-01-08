@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { MdDialog } from '@angular/material';
 // Components
-import {HelpComponent} from '../help/help.component';
-import {ProfileComponent} from '../profile/profile.component';
-import {SettingsComponent} from '../settings/settings.component';
+import {ProfileDialogComponent} from '../../dialogs/profile/profile.component';
+import {LoginDialogComponent} from '../../dialogs/login/login.component';
+import {RegistrationDialogComponent} from '../../dialogs/registration/registration.component';
+// Providers
+import {UserService} from '../../services/providers/user/user.service';
 
 @Component({
     selector: 'ma-header',
@@ -13,40 +15,23 @@ import {SettingsComponent} from '../settings/settings.component';
         MdDialog
     ]
 })
-export class HeaderComponent implements OnInit {
-    visibility = true;
-
+export class HeaderComponent {
     constructor(
-        public dialog: MdDialog
+        private dialog: MdDialog,
+        private userService: UserService,
     ) {}
-
-    /**
-     * Прячет шапку
-     */
-    hide() {
-        this.visibility = !this.visibility;
-    }
-
-    /**
-     * Открывает модалку Help
-     */
-    openHelp() {
-        const dialogRef = this.dialog.open(HelpComponent);
-    }
 
     /**
      * Открывает модалку Profile
      */
-    openProfile() {
-        const dialogRef = this.dialog.open(ProfileComponent);
+    profile() {
+        this.dialog.open(ProfileDialogComponent);
     }
 
     /**
-     * Открывает модалку Settings
+     * Открывает модалку Login
      */
-    openSettings() {
-        const dialogRef = this.dialog.open(SettingsComponent);
+    login() {
+        this.dialog.open(LoginDialogComponent);
     }
-
-    ngOnInit() {}
 }
